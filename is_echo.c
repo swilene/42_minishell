@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:16:41 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/07 17:09:59 by tchantro         ###   ########.fr       */
+/*   Updated: 2023/01/11 11:56:08 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,71 +14,7 @@
 
 extern int	g_exit_code;
 
-static void	quotes(int *i, char *str, t_init *init, t_lexer *lexer);
-
-static void	search_variable(char *var_name, t_env *tmp, t_lexer *lexer)
-{
-	char	*var;
-	int		len;
-
-	len = ft_strlen(var_name);
-	while (tmp)
-	{
-		if (ft_strnstr(tmp->str, var_name, len) && tmp->str[len] == '=')
-		{
-			len++;
-			var = ft_substr(tmp->str, &len, ft_strlen(tmp->str) - len);
-			if (var)
-			{
-				write(lexer->fd_out, var, ft_strlen(var));
-				free(var);
-			}
-			break ;
-		}
-		tmp = tmp->next;
-	}
-}
-
-static void	write_variable(int *i, char *str, t_init *init, t_lexer *lexer)
-{
-	char	*var_name;
-	int		j;
-
-	(void)init;
-	j = *i;
-	while (str[j] && ((str[j] >= 'a' && str[j] <= 'z') || (str[j] >= 'A'
-				&& str[j] <= 'Z') || str[j] == '_'))
-		j++;
-	var_name = ft_substr(str, i, j - (*i));
-	(*i)--;
-	search_variable(var_name, init->env, lexer);
-	search_variable(var_name, init->var, lexer);
-	(*i)++;
-}
-
-static void	variables(int *i, char *str, t_init *init, t_lexer *lexer)
-{
-	char	*nb;
-
-	(*i)++;
-	if (str[*i] == '\'')
-	{
-		(*i)--;
-		quotes(i, str, init, lexer);
-	}
-	if (str[*i] == '?')
-	{
-		nb = ft_itoa(g_exit_code);
-		write(lexer->fd_out, nb, ft_strlen(nb));
-	}
-	else if (str[*i] && str[*i] != '"' && str[*i] != '\'')
-		write_variable(i, str, init, lexer);
-	else
-		write(lexer->fd_out, "$", 1);
-	//(*i)++;
-}
-
-static void	quotes(int *i, char *str, t_init *init, t_lexer *lexer)
+static char	*quotes(int *i, char *str, t_init *init, t_lexer *lexer)
 {
 	if (str[*i] == '\'')
 	{
@@ -95,12 +31,44 @@ static void	quotes(int *i, char *str, t_init *init, t_lexer *lexer)
 		while (str[*i] && str[*i] != '"')
 		{
 			if (str[*i] == '$')
-				write_variable(i, str, init, lexer);
+			{
+				if (!write_variable(i, str, init, lexer))
+					return (NULL);
+			}
 			if (str[*i] && str[*i] != '"')
 				write(lexer->fd_out, &str[*i], 1);
 			(*i)++;
 		}
 	}
+	return ("ok");
+}
+
+static char	*variables(int *i, char *str, t_init *init, t_lexer *lexer)
+{
+	char	*nb;
+
+	(*i)++;
+	if (str[*i] == '\'')
+	{
+		(*i)--;
+		if (!quotes(i, str, init, lexer))
+			return (NULL);
+	}
+	if (str[*i] == '?')
+	{
+		nb = ft_itoa(g_exit_code);
+		write(lexer->fd_out, nb, ft_strlen(nb));
+		free(nb);
+	}
+	else if (str[*i] && str[*i] != '"' && str[*i] != '\'')
+	{
+		if (!write_variable(i, str, init, lexer))
+			return (NULL);
+	}
+	else
+		write(lexer->fd_out, "$", 1);
+	(*i)++;
+	return ("ok");
 }
 
 static void	flags(t_lexer *lexer, int *j, int *n)
@@ -123,6 +91,28 @@ static void	flags(t_lexer *lexer, int *j, int *n)
 	}
 }
 
+static char	*parsing_echo(t_init *init, t_lexer *lexer, int j, int *k)
+{
+	if (lexer->quotes[j][*k] == '\'' || lexer->quotes[j][*k] == '"')
+	{
+		if (!quotes(k, lexer->quotes[j], init, lexer))
+			return (NULL);
+	}
+	else
+	{
+		if (lexer->quotes[j][*k] == '$')
+		{
+			if (!variables(k, lexer->quotes[j], init, lexer))
+				return (NULL);
+		}
+		if (lexer->quotes[j][*k])
+			write(lexer->fd_out, &lexer->quotes[j][*k], 1);
+	}
+	if (lexer->quotes[j][*k])
+		(*k)++;
+	return ("ok");
+}
+
 void	is_echo(t_init *init, t_lexer *lexer, int i)
 {
 	int	j;
@@ -142,17 +132,8 @@ void	is_echo(t_init *init, t_lexer *lexer, int i)
 		k = 0;
 		while (lexer->quotes[j][k])
 		{
-			if (lexer->quotes[j][k] == '\'' || lexer->quotes[j][k] == '"')
-				quotes(&k, lexer->args[j], init, lexer);
-			else
-			{
-				if (lexer->quotes[j][k] == '$')
-					variables(&k, lexer->quotes[j], init, lexer);
-				if (lexer->quotes[j][k])
-					write(lexer->fd_out, &lexer->quotes[j][k], 1);
-			}
-			if (lexer->quotes[j][k])
-				k++;
+			if (!parsing_echo(init, lexer, j, &k))
+				return ;
 		}
 		if (lexer->quotes[j + 1])
 			write(lexer->fd_out, " ", 1);

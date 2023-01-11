@@ -6,7 +6,7 @@
 #    By: saguesse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/07 14:54:21 by saguesse          #+#    #+#              #
-#    Updated: 2023/01/10 17:34:02 by saguesse         ###   ########.fr        #
+#    Updated: 2023/01/11 10:27:07 by saguesse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRC = main.c \
 	print_list.c \
 	init_files.c \
 	close_fds.c \
+	is_echo_utils.c \
 	
 HEADER = structures.h \
 	prototypes.h \
