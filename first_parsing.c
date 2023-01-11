@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 10:49:14 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/05 16:54:03 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:03:21 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	first_errors(char *line, int *i)
 
 	if (!((line[*i] >= 'a' && line[*i] <= 'z') || line[*i] == '$' || line[*i]
 			== '>' || line[*i] == '<' || line[*i] == '"' || line[*i] == '\''
-			|| (line[*i] >= 'A' && line[*i] <= 'Z') || line[*i] == '.'))
+			|| (line[*i] >= 'A' && line[*i] <= 'Z') || line[*i] == '.'
+			|| line[*i] == '/'))
 	{
 		if (line[*i] == '|' || line[*i] == '(' || line[*i] == ')'
 			|| line[*i] == '&')

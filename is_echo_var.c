@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:35:02 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/11 10:36:57 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/11 17:02:14 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_exit_code;
 
-static void	variables(int *i, char *str, t_init *init, t_lexer *lexer)
+static void	variables(int *i, char *str, t_lexer *lexer, t_init *init)
 {
 	char	*nb;
 
@@ -30,18 +30,18 @@ static void	variables(int *i, char *str, t_init *init, t_lexer *lexer)
 		write(lexer->fd_out, nb, ft_strlen(nb));
 	}
 	else if (str[*i] && str[*i] != '"' && str[*i] != '\'')
-		write_variable(i, str, init, lexer);
+		write_variable(i, str, lexer, init);
 	else
 		write(lexer->fd_out, "$", 1);
 	(*i)++;
 }
 
-static void	quotes(int *i, char *str, t_init *init, t_lexer *lexer)
+static void	quotes(int *i, char *str, t_lexer *lexer, t_init *init)
 {
 	while (str[*i] && str[*i] != '"')
 	{
 		if (str[*i] == '$')
-			variables(i, str, init, lexer);
+			variables(i, str, lexer, init);
 		if (str[*i] && str[*i] != '"')
 			write(lexer->fd_out, &str[*i], 1);
 		(*i)++;
@@ -94,7 +94,7 @@ void	is_echo_var(t_init *init, t_lexer *lexer, int i)
 	{
 		k = 0;
 		if (q)
-			quotes(&k, lexer->args[j], init, lexer);
+			quotes(&k, lexer->args[j], lexer, init);
 		else
 		{
 			while (lexer->args[j][k])

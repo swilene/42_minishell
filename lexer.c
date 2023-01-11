@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:48:30 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/10 11:47:04 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:11:53 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	lexer(t_init *init)
 				return (free_new_lexer(new, word));
 		}
 		else if ((word[0] >= 'a' && word[0] <= 'z') || (word[0]
-				>= 'A' && word[0] <= 'Z'))
+				>= 'A' && word[0] <= 'Z') || word[0] == '/')
 		{	
 			if (!(check_builtin(word)))
 			{

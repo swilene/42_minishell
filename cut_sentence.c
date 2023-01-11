@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:05:01 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/06 17:54:38 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/11 17:11:32 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,12 @@ int	is_not_word(char *line, int *j)
 	}
 	else if (!((line[*j] >= 'a' && line[*j] <= 'z') || (line[*j] >= 'A'
 				&& line[*j] < 'Z') || (line[*j] >= '0' && line[*j] <= '9')
-			|| line[*j] == ' ' || line[*j] == '\0'))
+			|| line[*j] == ' ' || line[*j] == '\0' || line[*j] == '/'))
 	{
 		while (!((line[*j] >= 'a' && line[*j] <= 'z') || (line[*j] >= 'A'
 					&& line[*j] < 'Z') || (line[*j] >= '0' && line[*j] <= '9')
-				|| line[*j] == ' ' || line[*j] == '$' || line[*j] == '\0'))
+				|| line[*j] == ' ' || line[*j] == '$' || line[*j] == '\0'
+				|| line[*j] == '/'))
 			(*j)++;
 	}
 	else

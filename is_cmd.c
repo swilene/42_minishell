@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 16:33:46 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/10 14:35:01 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:20:18 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	*get_access(char **path, char *cmd)
 
 void	is_cmd(t_lexer *tmp, t_init *init)
 {
+	printf("ici2\n");
+	printf("%s\n", tmp->cmd);
 	if (access(tmp->cmd, F_OK | X_OK) >= 0)
 	{
 		tmp->prog = ft_strdup(tmp->cmd);
@@ -52,7 +54,10 @@ void	is_cmd(t_lexer *tmp, t_init *init)
 		}
 	}
 	else
+	{	
+		printf("ici3\n");
 		tmp->prog = get_access(init->path, tmp->cmd);
+	}
 	if (!tmp->prog)
 	{
 		free_before_exit(init);

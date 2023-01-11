@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:49:31 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/10 10:29:24 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:13:45 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ int	pipex(t_init *init)
 				return (perror("fork()"), 3);
 			if (tmp->pid == 0)
 			{
+				/*if (tmp->cmd)
+				{
+					printf("%s\n", tmp->cmd);
+				}*/
+				signal(SIGINT, &signal_block_cmd);
 				//if (tmp->cmd) --> signal
 				//else --> pas signal
 				do_dup(tmp, init, i);

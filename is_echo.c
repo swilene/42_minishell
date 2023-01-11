@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:16:41 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/11 11:56:08 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/11 17:20:24 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 extern int	g_exit_code;
 
-static char	*quotes(int *i, char *str, t_init *init, t_lexer *lexer)
+static char	*quotes(int *i, char *str, t_lexer *lexer, t_init *init)
 {
 	if (str[*i] == '\'')
 	{
 		(*i)++;
 		while (str[*i] && str[*i] != '\'')
 		{
-			write(lexer->fd_out, &str[*i], 1);
+			if (write(lexer->fd_out, &str[*i], 1) < 0)
+				return (perror("echo"), NULL);
 			(*i)++;
 		}
 	}
@@ -32,18 +33,22 @@ static char	*quotes(int *i, char *str, t_init *init, t_lexer *lexer)
 		{
 			if (str[*i] == '$')
 			{
-				if (!write_variable(i, str, init, lexer))
+				(*i)++;
+				if (!write_variable(i, str, lexer, init))
 					return (NULL);
 			}
 			if (str[*i] && str[*i] != '"')
-				write(lexer->fd_out, &str[*i], 1);
+			{
+				if (write(lexer->fd_out, &str[*i], 1) < 0)
+					return (perror("echo"), NULL);
+			}
 			(*i)++;
 		}
 	}
 	return ("ok");
 }
 
-static char	*variables(int *i, char *str, t_init *init, t_lexer *lexer)
+static char	*variables(int *i, char *str, t_lexer *lexer, t_init *init)
 {
 	char	*nb;
 
@@ -51,23 +56,32 @@ static char	*variables(int *i, char *str, t_init *init, t_lexer *lexer)
 	if (str[*i] == '\'')
 	{
 		(*i)--;
-		if (!quotes(i, str, init, lexer))
+		if (!quotes(i, str, lexer, init))
 			return (NULL);
 	}
 	if (str[*i] == '?')
 	{
 		nb = ft_itoa(g_exit_code);
-		write(lexer->fd_out, nb, ft_strlen(nb));
+		if (write(lexer->fd_out, nb, ft_strlen(nb)) < 0)
+		{
+			free(nb);
+			return (perror("echo"), NULL);
+		}
 		free(nb);
+		(*i)++;
 	}
 	else if (str[*i] && str[*i] != '"' && str[*i] != '\'')
 	{
-		if (!write_variable(i, str, init, lexer))
+		if (!write_variable(i, str, lexer, init))
 			return (NULL);
 	}
 	else
-		write(lexer->fd_out, "$", 1);
-	(*i)++;
+	{
+		if (write(lexer->fd_out, "$", 1) < 0)
+			return (perror("echo"), NULL);
+	}
+	if (str[*i])
+		(*i)++;
 	return ("ok");
 }
 
@@ -91,22 +105,25 @@ static void	flags(t_lexer *lexer, int *j, int *n)
 	}
 }
 
-static char	*parsing_echo(t_init *init, t_lexer *lexer, int j, int *k)
+static char	*parsing_echo(t_lexer *lexer, int j, int *k, t_init *init)
 {
 	if (lexer->quotes[j][*k] == '\'' || lexer->quotes[j][*k] == '"')
 	{
-		if (!quotes(k, lexer->quotes[j], init, lexer))
+		if (!quotes(k, lexer->quotes[j], lexer, init))
 			return (NULL);
 	}
 	else
 	{
 		if (lexer->quotes[j][*k] == '$')
 		{
-			if (!variables(k, lexer->quotes[j], init, lexer))
+			if (!variables(k, lexer->quotes[j], lexer, init))
 				return (NULL);
 		}
 		if (lexer->quotes[j][*k])
-			write(lexer->fd_out, &lexer->quotes[j][*k], 1);
+		{
+			if (write(lexer->fd_out, &lexer->quotes[j][*k], 1) < 0)
+				return (perror("echo"), NULL);
+		}
 	}
 	if (lexer->quotes[j][*k])
 		(*k)++;
@@ -132,13 +149,19 @@ void	is_echo(t_init *init, t_lexer *lexer, int i)
 		k = 0;
 		while (lexer->quotes[j][k])
 		{
-			if (!parsing_echo(init, lexer, j, &k))
+			if (!parsing_echo(lexer, j, &k, init))
 				return ;
 		}
 		if (lexer->quotes[j + 1])
-			write(lexer->fd_out, " ", 1);
+		{
+			if (write(lexer->fd_out, " ", 1) < 0)
+				return (perror("echo"));
+		}
 		j++;
 	}
 	if (!n)
-		write(lexer->fd_out, "\n", 1);
+	{
+		if (write(lexer->fd_out, "\n", 1) < 0)
+			return (perror("echo"));
+	}
 }

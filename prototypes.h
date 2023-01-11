@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:08:36 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/11 10:34:37 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/11 15:21:35 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		check_builtin(char *word);
 int		check_envariables(char *word, t_init *init);
 int		search_env_var(t_env *tmp, char *word, t_lexer *new);
 char	*search_variabl(char *var_name, t_env *tmp, t_lexer *lexer);
-char	*write_variable(int *i, char *str, t_init *init, t_lexer *lexer);
+char	*write_variable(int *i, char *str, t_lexer *lexer, t_init *init);
 void	is_cmd(t_lexer *tmp, t_init *init);
 void	is_pwd(t_init *init, t_lexer *tmp, int i);
 void	is_env(t_init *init, t_lexer *tmp, int i);
@@ -77,5 +77,6 @@ int		in_var(char *arg, t_env **env, t_env **var);
 void	is_exit(t_init *init);
 void	print_list(t_env **list);
 void	close_fd_heredoc(t_lexer *lexer);
+void	signal_block_cmd(int signal);
 
 #endif

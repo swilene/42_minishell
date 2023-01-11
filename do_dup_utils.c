@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:41:57 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/10 11:00:23 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:18:31 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@ int	check_before_dup(t_lexer *tmp, t_init *init)
 		return (1);
 	}
 	if (tmp->cmd)
+	{
+		printf("ici1\n");
 		is_cmd(tmp, init);
+	}
 	return (0);
 }
