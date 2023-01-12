@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:04:59 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/11 12:24:20 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/12 18:25:03 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	do_dup(t_lexer *tmp, t_init *init, int i)
 {
 	if (check_before_dup(tmp, init))
 		return ;
-	if (tmp->cmd || tmp->program)
+	if (tmp->cmd || tmp->program || init->nb_pipe)
 	{
 		close_pipes_before_dup(init, i, 0);
 		dups(tmp, init, i);

@@ -6,13 +6,13 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 09:51:29 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/06 10:58:33 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/12 17:00:02 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_env	*ft_envnew(char	*str)
+t_env	*ft_envnew(char	*str, char *quotes)
 {
 	t_env	*head;
 
@@ -20,7 +20,10 @@ t_env	*ft_envnew(char	*str)
 	if (!head)
 		return (NULL);
 	head->str = str;
-	head->quote = NULL;
+	if (quotes)
+		head->quote = ft_strdup(quotes);
+	else
+		head->quote = NULL;
 	head->next = NULL;
 	return (head);
 }

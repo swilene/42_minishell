@@ -6,7 +6,7 @@
 #    By: saguesse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/07 14:54:21 by saguesse          #+#    #+#              #
-#    Updated: 2023/01/11 10:27:07 by saguesse         ###   ########.fr        #
+#    Updated: 2023/01/12 14:49:53 by saguesse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,6 @@ SRC = main.c \
 	is_env.c \
 	is_cd.c \
 	is_export.c \
-	is_export_bis.c \
 	is_unset.c \
 	is_exit.c \
 	is_echo.c \
@@ -55,6 +54,7 @@ SRC = main.c \
 	init_files.c \
 	close_fds.c \
 	is_echo_utils.c \
+	is_export_bis.c \
 	
 HEADER = structures.h \
 	prototypes.h \

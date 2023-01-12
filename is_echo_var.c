@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:35:02 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/11 17:02:14 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:17:38 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ void	is_echo_var(t_init *init, t_lexer *lexer, int i)
 	int	k;
 
 	n = 0;
+	j = 1;
 	if (init->nb_pipe && i != init->nb_pipe && !lexer->fd_out)
 		lexer->fd_out = init->fd_pipe[i][1];
 	else if (!lexer->fd_out)
 		lexer->fd_out = STDOUT_FILENO;
-	j = 1;
 	if (lexer->args[j] && lexer->args[j][0] == '-')
 		flags(lexer, &j, &n);
 	k = 0;

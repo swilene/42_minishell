@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:49:31 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/11 18:13:45 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/12 18:55:13 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	pipex(t_init *init)
 	i = 0;
 	while (tmp)
 	{
-		if (tmp->cmd || tmp->program)
+		if (tmp->cmd || tmp->program || init->nb_pipe)
 		{
 			tmp->pid = fork();
 			if (tmp->pid < 0)

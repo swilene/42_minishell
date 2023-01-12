@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:09:33 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/06 17:38:12 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:26:34 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 extern int	g_exit_code;
 
-int	search_env_var(t_env *tmp, char *word, t_lexer *new)
+char	*is_env_var(t_init *init, char *word, t_lexer *new);
+
+int	search_env_var(t_env *tmp, char *word, t_lexer *new, t_init *init)
 {
 	char	*env_var;
 	char	**var;
@@ -48,15 +50,23 @@ int	search_env_var(t_env *tmp, char *word, t_lexer *new)
 		free(str);
 		if (!var)
 			return (-3);
-		if (!check_builtin(var[0]))
+		if (var[0][0] == '$')
+			is_env_var(init, var[0], new);
+		else if (!check_builtin(var[0]))
 		{
 			new->cmd = ft_strdup(var[0]);
 			if (!new->cmd)
 				return (free_str(var), -4);
 		}
 		else
+		{
 			new->env_var = tmp;
-		new->args = var;
+			new->builtin = ft_strdup(var[0]);
+		}
+		if (!new->args)
+			new->args = var;
+		else
+			free_str(var);
 		return (nb);
 	}
 	return (1);
@@ -70,6 +80,7 @@ char	*is_env_var(t_init *init, char *word, t_lexer *new)
 	char	*var;
 
 	i = 1;
+	//printf("%s\n", new->quotes[0]);
 	if (new->quotes[0][0] == '\'')
 	{
 		new->cmd = ft_strdup(word);
@@ -94,10 +105,10 @@ char	*is_env_var(t_init *init, char *word, t_lexer *new)
 			}
 			else
 			{
-				err = search_env_var(init->env, var, new);
+				err = search_env_var(init->env, var, new, init);
 				if (err > 0)
 				{
-					err = search_env_var(init->var, var, new);
+					err = search_env_var(init->var, var, new, init);
 					if (err < 0)
 						return (free(var), NULL);
 				}

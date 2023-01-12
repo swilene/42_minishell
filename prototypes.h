@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:08:36 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/11 15:21:35 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:11:12 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	free_before_exit(t_init *init);
 int		check_before_dup(t_lexer *tmp, t_init *init);
 char	*take_quotes(t_list *tmp, t_lexer *new, int i, int j);
 int		check_builtin(char *word);
-int		check_envariables(char *word, t_init *init);
-int		search_env_var(t_env *tmp, char *word, t_lexer *new);
+int		check_envariables(char *word, t_init *init, char *quotes);
+int		search_env_var(t_env *tmp, char *word, t_lexer *new, t_init *init);
 char	*search_variabl(char *var_name, t_env *tmp, t_lexer *lexer);
 char	*write_variable(int *i, char *str, t_lexer *lexer, t_init *init);
 void	is_cmd(t_lexer *tmp, t_init *init);
@@ -72,8 +72,8 @@ void	is_cd(t_lexer *tmp);
 char	*is_env_var(t_init *init, char *word, t_lexer *new);
 int		is_heredoc(t_red *tmp, t_lexer *tmp_lexer, t_init *init);
 void	is_export(t_init *init, t_env **env, t_env **var);
-int		in_env(char *arg, t_env **env);
-int		in_var(char *arg, t_env **env, t_env **var);
+int		in_env(char *arg, t_env **env, char *quotes);
+int		in_var(char *arg, t_env **env, t_env **var, char *quotes);
 void	is_exit(t_init *init);
 void	print_list(t_env **list);
 void	close_fd_heredoc(t_lexer *lexer);

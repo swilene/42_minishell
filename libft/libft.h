@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:12:03 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/06 11:46:31 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/12 14:32:37 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	ft_dellexer(t_lexer **lexer);
 void	free_str(char **str);
 t_lexer	*ft_lexernew(void);
 t_red	*ft_rednew(void);
-t_env	*ft_envnew(char *str);
+t_env	*ft_envnew(char *str, char *quotes);
 char	*remove_quotes(char *word, int i, int len);
 int		ft_envsize(t_env *env);
 int		ft_lexersize(t_lexer *lexer);

@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:48:30 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/11 18:11:53 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/12 14:31:09 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	lexer(t_init *init)
 		{	
 			if (!(check_builtin(word)))
 			{
-				if (!(check_envariables(word, init)))
+				if (!(check_envariables(word, init, tmp->word)))
 				{
 					new->cmd = ft_strdup(word);
 					if (!new->cmd)
@@ -82,6 +82,7 @@ void	lexer(t_init *init)
 		}
 		else if (word[0] == '$' && !new->env_var)
 		{
+
 			if (!is_env_var(init, word, new))
 				return (free_new_lexer(new, word));
 		}

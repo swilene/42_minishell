@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:45:23 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/05 10:10:35 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/12 18:45:00 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,10 @@ void	execution(t_lexer *lexer, t_init *init, int i)
 			is_cd(lexer);
 		else if (ft_strcmp(lexer->builtin, "exit") == 0)
 			is_exit(init);
+	}
+	if (init->nb_pipe)
+	{
+		free_before_exit(init);
+		exit(0);
 	}
 }
