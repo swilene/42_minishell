@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:30:04 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/10 17:35:21 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/13 16:26:18 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ void	close_fd_pipe(t_init *init)
 			if (close(tmp->fd_heredoc[0]) < 0)
 				perror("heredoc ici");
 		}
+		if (tmp->heredoc && tmp->fd_heredoc[1] > 0 && tmp->cmd)
+		{
+			if (close(tmp->fd_heredoc[1]) < 0)
+				perror("heredoc la");
+		}
+		else
+			close_fd_heredoc(tmp);
 		tmp = tmp->next;
 	}
 }

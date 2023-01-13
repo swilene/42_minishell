@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:04:59 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/12 18:25:03 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/13 15:56:58 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,12 @@ void	is_program(t_lexer *tmp, t_init *init)
 		exit(g_exit_code);
 	}
 	else
+	{
 		execve(tmp->program, tmp->args, init->envp);
+		printf("%s: %s\n", tmp->program, strerror(EISDIR));
+		free_before_exit(init);
+		exit(0);
+	}
 }
 
 void	do_dup(t_lexer *tmp, t_init *init, int i)

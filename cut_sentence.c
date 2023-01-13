@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:05:01 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/11 17:11:32 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/13 16:26:33 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	cut_sentence(t_init *init, char *line, int *i, int j)
 		if (*i != j)
 		{
 			new = ft_lstnew(ft_substr(line, i, j - *i));
+			//printf("%s\n", new->word);
 			if (!new)
 				return ;
 			ft_lstadd_back(&(init->sentence), new);
