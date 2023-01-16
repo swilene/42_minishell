@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:04:59 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/13 15:56:58 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/16 14:33:38 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	dups(t_lexer *tmp, t_init *init, int i)
 	err_dup_w = 0;
 	if (tmp->fd_in > 0)
 		err_dup_r = dup2(tmp->fd_in, STDIN_FILENO);
-	else if (tmp->heredoc)
-		err_dup_r = dup2(tmp->fd_heredoc[0], STDIN_FILENO);
 	else if (init->nb_pipe && i != 0)
 		err_dup_r = dup2(init->fd_pipe[i - 1][0], STDIN_FILENO);
 	if (tmp->fd_out > 0)

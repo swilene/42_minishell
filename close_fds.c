@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:30:04 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/13 16:26:18 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:34:33 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	close_fd_heredoc(t_lexer *lexer)
 void	close_fd_pipe(t_init *init)
 {
 	int		i;
-	t_lexer	*tmp;
 
 	i = 0;
 	while (i < init->nb_pipe)
@@ -33,23 +32,6 @@ void	close_fd_pipe(t_init *init)
 		if (close(init->fd_pipe[i][1]) < 0)
 			ft_printf("fd_pipe[%d][1]: %s\n", i, strerror(errno));
 		i++;
-	}
-	tmp = init->lexer;
-	while (tmp)
-	{
-		if (tmp->heredoc && tmp->fd_heredoc[0] > 0 && tmp->cmd)
-		{
-			if (close(tmp->fd_heredoc[0]) < 0)
-				perror("heredoc ici");
-		}
-		if (tmp->heredoc && tmp->fd_heredoc[1] > 0 && tmp->cmd)
-		{
-			if (close(tmp->fd_heredoc[1]) < 0)
-				perror("heredoc la");
-		}
-		else
-			close_fd_heredoc(tmp);
-		tmp = tmp->next;
 	}
 }
 
@@ -74,4 +56,3 @@ void	close_files(t_init *init)
 		tmp = tmp->next;
 	}
 }
-

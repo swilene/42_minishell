@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:08:36 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/12 16:11:12 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/16 15:23:09 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ int		in_var(char *arg, t_env **env, t_env **var, char *quotes);
 void	is_exit(t_init *init);
 void	print_list(t_env **list);
 void	close_fd_heredoc(t_lexer *lexer);
-void	signal_block_cmd(int signal);
+void	signal_fork(int signal);
 
 #endif

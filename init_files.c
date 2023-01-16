@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:15:37 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/10 17:20:43 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/16 12:21:08 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@ void	in_and_out_files(t_red *tmp_red, t_lexer *tmp_lexer)
 		}
 		tmp_lexer->file_in = tmp_red->file;
 		tmp_lexer->fd_in = tmp_red->fd;
+	}
+	else if (tmp_red->mode == 5 && (tmp_lexer->cmd || tmp_lexer->builtin ||
+				tmp_lexer->program))
+	{
+		if (tmp_lexer->fd_in)
+		{
+			if (close(tmp_lexer->fd_in) < 0)
+				perror(tmp_lexer->file_in);
+		}
+		tmp_lexer->file_in = tmp_red->file;
+		tmp_lexer->fd_in = tmp_lexer->fd_heredoc[0];
 	}
 }
 
@@ -91,6 +102,8 @@ char	*init_files(t_init *init)
 			{
 				if (is_heredoc(tmp_red, tmp_lexer, init))
 					return (NULL);
+				tmp_red->mode = 5;
+				in_and_out_files(tmp_red, tmp_lexer);
 			}
 			else
 				init_mode(tmp_red, tmp_lexer);

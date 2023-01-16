@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:41:57 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/13 11:35:05 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/16 17:45:51 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,6 @@ void	close_after_dup(t_init *init, t_lexer *tmp, int i)
 		if (close(tmp->fd_in) < 0)
 			perror(tmp->file_in);
 	}
-	else if (tmp->heredoc)
-	{
-		if (close(tmp->fd_heredoc[0]) < 0)
-			perror("heredoc");
-	}
 	else if (init->nb_pipe && i != 0)
 	{
 		if (close(init->fd_pipe[i - 1][0]) < 0)
@@ -86,14 +81,16 @@ void	close_after_dup(t_init *init, t_lexer *tmp, int i)
 
 void	free_before_exit(t_init *init)
 {
-	close_fd_pipe(init);
 	close_files(init);
 	free_env(init);
 	free_var(init);
 	if (init->path)
 		free_str(init->path);
 	if (init->nb_pipe)
+	{
+		close_fd_pipe(init);
 		free_pipe(init);
+	}
 	if (init->envp)
 		free(init->envp);
 	ft_dellist(&(init->sentence), &(init->lexer));

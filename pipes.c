@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:49:31 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/12 18:55:13 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:22:16 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,29 +51,29 @@ int	pipex(t_init *init)
 	i = 0;
 	while (tmp)
 	{
-		if (tmp->cmd || tmp->program || init->nb_pipe)
-		{
-			tmp->pid = fork();
-			if (tmp->pid < 0)
-				return (perror("fork()"), 3);
-			if (tmp->pid == 0)
-			{
-				/*if (tmp->cmd)
-				{
-					printf("%s\n", tmp->cmd);
-				}*/
-				signal(SIGINT, &signal_block_cmd);
-				//if (tmp->cmd) --> signal
-				//else --> pas signal
-				do_dup(tmp, init, i);
-			}
-		}
+		if (!tmp->cmd && !tmp->builtin && !tmp->program)
+			tmp = tmp->next;
 		else
-			do_dup(tmp, init, i);
-		i++;
-		tmp = tmp->next;
+		{
+			if (tmp->cmd || tmp->program || init->nb_pipe)
+			{
+				tmp->pid = fork();
+				if (tmp->pid < 0)
+					return (perror("fork()"), 3);
+				signal(SIGINT, &signal_fork);
+				signal(SIGQUIT, &signal_fork);
+				if (tmp->pid == 0)
+					do_dup(tmp, init, i);
+			}
+			else
+				do_dup(tmp, init, i);
+			i++;
+			tmp = tmp->next;
+		}
 	}
 	parent_proc(init);
+	signal(SIGINT, &signal_int);
+	signal(SIGQUIT, SIG_IGN);
 	return (0);
 }
 
