@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:09:33 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/12 16:26:34 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:18:08 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,49 +75,65 @@ int	search_env_var(t_env *tmp, char *word, t_lexer *new, t_init *init)
 char	*is_env_var(t_init *init, char *word, t_lexer *new)
 {
 	int		i;
+	int		j;
 	int		len;
 	int		err;
+	char	*str;
 	char	*var;
 
+
 	i = 1;
-	//printf("%s\n", new->quotes[0]);
-	if (new->quotes[0][0] == '\'')
+	j = 0;
+	str = ft_calloc(1, ft_strlen(new->quotes) + 1);
+	var = ft_calloc(1, ft_strlen(new->quotes) + 1);
+	printf("%s\n", new->quotes[0]);
+	while (new->quotes[0][j])
 	{
-		new->cmd = ft_strdup(word);
-		if (!new->cmd)
-			return (NULL);
-	}
-	else
-	{
-		while (word[i])
+		if (new->quotes[0][j] == '\'')
 		{
-			len = i - 1;
-			while (word[i] && word[i] != '$')
-				i++;
-			var = ft_substr(word, &len, i);
-			if (!var)
-				return (NULL);
-			if (var[len - i + 1] == '?')
+			len = 0;
+			single_quotes(&j, &len, new->quotes[0], str);
+		}
+		else if (new->quotes[0][j] == '"')
+		{
+			len = 0;
+			double_quotes()
+			while (new->quotes[0][j] && new->quotes[0][j] != '"')
+				j++;
+			var = 
+		}
+		else
+		{
+			while (word[i])
 			{
-				new->cmd = ft_itoa(g_exit_code);
-				if (!new->cmd)
+				len = i - 1;
+				while (word[i] && word[i] != '$')
+					i++;
+				var = ft_substr(word, &len, i);
+				if (!var)
 					return (NULL);
-			}
-			else
-			{
-				err = search_env_var(init->env, var, new, init);
-				if (err > 0)
+				if (var[len - i + 1] == '?')
 				{
-					err = search_env_var(init->var, var, new, init);
-					if (err < 0)
+					new->cmd = ft_itoa(g_exit_code);
+					if (!new->cmd)
+						return (NULL);
+				}
+				else
+				{
+					err = search_env_var(init->env, var, new, init);
+					if (err > 0)
+					{
+						err = search_env_var(init->var, var, new, init);
+						if (err < 0)
+							return (free(var), NULL);
+					}
+					else if (err < 0)
 						return (free(var), NULL);
 				}
-				else if (err < 0)
-					return (free(var), NULL);
+				free(var);
+				if (word[i])
+					i++;
 			}
-			free(var);
-			if (word[i])
-				i++;
 		}
 	}
 	return ("ok");

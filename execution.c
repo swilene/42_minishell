@@ -6,11 +6,13 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:45:23 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/16 14:54:08 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:42:00 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
+
+extern int	g_exit_code;
 
 void	execution(t_lexer *lexer, t_init *init, int i)
 {
@@ -34,7 +36,7 @@ void	execution(t_lexer *lexer, t_init *init, int i)
 		else if (ft_strcmp(lexer->builtin, "cd") == 0)
 			is_cd(lexer);
 		else if (ft_strcmp(lexer->builtin, "exit") == 0)
-			is_exit(init);
+			is_exit(init, lexer);
 	}
 	if (init->nb_pipe)
 	{
@@ -51,6 +53,6 @@ void	execution(t_lexer *lexer, t_init *init, int i)
 		free_pipe(init);
 		init->nb_pipe = 0;
 		free_before_exit(init);
-		exit(0);
+		exit(g_exit_code);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:12:03 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/12 14:32:37 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:39:48 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int		ft_envsize(t_env *env);
 int		ft_lexersize(t_lexer *lexer);
 void	ft_lstdelone(t_env *tmp, t_env **env, t_env **first);
 char	*ft_strcpy(char *dest, char *src);
+int		str_isdigit(char *str);
 
 /*void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst, void (*del)(void *));

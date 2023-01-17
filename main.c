@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:10:59 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/12 14:34:03 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:41:14 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	minishell(t_init *init)
 		init->path = get_path(init->envp);
 		line = readline("$> ");
 		if (!line)
-			is_exit(init);
+			is_exit(init, init->lexer);
 		parsing_line(line, init);
 		if (ft_strlen(line))
 			add_history(line);

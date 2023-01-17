@@ -6,13 +6,13 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 10:35:32 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/06 11:56:05 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:43:36 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	single_quotes(int *i, int *len, char *word, char *str)
+void	single_quotes(int *i, int *len, char *word, char *str)
 {
 	(*i)++;
 	while (word[*i] && word[*i] != '\'')
@@ -26,7 +26,7 @@ static void	single_quotes(int *i, int *len, char *word, char *str)
 	}
 }
 
-static void	double_quotes(int *i, int *len, char *word, char *str)
+void	double_quotes(int *i, int *len, char *word, char *str)
 {
 	(*i)++;
 	while (word[*i] && word[*i] != '"')

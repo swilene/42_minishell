@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:48:30 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/12 14:31:09 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:42:56 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	lexer(t_init *init)
 		return ;
 	if (!take_quotes(tmp, new, 0, 0))
 		return (free(new));
+	//env var
 	while (tmp)
 	{
 		if (tmp->word[0] == '#')
@@ -79,12 +80,6 @@ void	lexer(t_init *init)
 				if (!take_args(&tmp, new, 0, 0))
 					return (free_new_lexer(new, word));
 			}
-		}
-		else if (word[0] == '$' && !new->env_var)
-		{
-
-			if (!is_env_var(init, word, new))
-				return (free_new_lexer(new, word));
 		}
 		else if (word[0] == '|')
 		{

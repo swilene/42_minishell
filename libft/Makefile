@@ -6,7 +6,7 @@
 #    By: saguesse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/09 09:58:29 by saguesse          #+#    #+#              #
-#    Updated: 2022/12/06 17:04:54 by saguesse         ###   ########.fr        #
+#    Updated: 2023/01/17 17:40:11 by saguesse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,7 @@ SRC = ft_isalpha.c \
 	ft_lstsize.c \
 	ft_lstdelone.c \
 	ft_strcpy.c \
+	str_isdigit.c \
 	#ft_lstadd_front.c \
 	ft_lstclear.c \
 	ft_lstiter.c \
