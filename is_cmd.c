@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 16:33:46 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/17 11:33:39 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:51:33 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	is_cmd(t_lexer *tmp, t_init *init)
 	}
 	else
 		tmp->prog = get_access(init->path, tmp->cmd);
-	tmp->prog = NULL;
 	if (!tmp->prog)
 	{
 		close_files(init);
