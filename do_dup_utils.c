@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 10:41:57 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/16 17:45:51 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:34:01 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	close_after_dup(t_init *init, t_lexer *tmp, int i)
 
 void	free_before_exit(t_init *init)
 {
-	close_files(init);
 	free_env(init);
 	free_var(init);
 	if (init->path)
@@ -101,7 +100,7 @@ int	check_before_dup(t_lexer *tmp, t_init *init)
 	if (tmp->fd_in < 0 || tmp->fd_out < 0)
 	{
 		g_exit_code = 1;
-		if (tmp->cmd || tmp->program)
+		if (init->nb_pipe || tmp->cmd || tmp->program)
 		{
 			free_before_exit(init);
 			exit(g_exit_code);

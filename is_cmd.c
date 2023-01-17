@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 16:33:46 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/12 10:45:16 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/17 11:33:39 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	is_cmd(t_lexer *tmp, t_init *init)
 		tmp->prog = ft_strdup(tmp->cmd);
 		if (!tmp->prog)
 		{
+			close_files(init);
 			free_before_exit(init);
 			exit(0);
 		}
@@ -54,14 +55,17 @@ void	is_cmd(t_lexer *tmp, t_init *init)
 	else if (tmp->cmd[0] == '/')
 	{
 		printf("%s: %s\n", tmp->cmd, strerror(ENOENT));
+		close_files(init);
 		free_before_exit(init);
 		g_exit_code = 127;
 		exit(g_exit_code);
 	}
 	else
 		tmp->prog = get_access(init->path, tmp->cmd);
+	tmp->prog = NULL;
 	if (!tmp->prog)
 	{
+		close_files(init);
 		free_before_exit(init);
 		g_exit_code = 127;
 		exit(g_exit_code);
