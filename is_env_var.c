@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 15:09:33 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/17 17:18:08 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/18 17:56:26 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,127 +14,120 @@
 
 extern int	g_exit_code;
 
-char	*is_env_var(t_init *init, char *word, t_lexer *new);
-
-int	search_env_var(t_env *tmp, char *word, t_lexer *new, t_init *init)
+char	*is_env_var(t_list *tmp, t_init *init)
 {
-	char	*env_var;
-	char	**var;
-	char	*str;
-	int		nb;
 	int		i;
+	//int		j;
+	int		len;
+	char	*word;
+	char	*str;
+	char	*var;
+	char	*var_name;
 
-	var = NULL;
-	nb = 1;
-	env_var = ft_strtrim(word, "$");
-	if (!env_var)
-		return (-1);
+
+	//printf("%s\n", new->quotes[j]);
 	while (tmp)
 	{
 		i = 0;
-		while (tmp->str[i] && tmp->str[i] != '=')
-			i++;
-		nb = ft_strncmp(tmp->str, env_var, ft_strlen(env_var));
-		if (!nb)
-			break ;
-		tmp = tmp->next;
-	}
-	free(env_var);
-	if (!nb)
-	{
-		i++;
-		str = ft_substr(tmp->str, &i, ft_strlen(tmp->str) - i);
-		if (!str)
-			return (-2);
-		var = ft_split(str, ' ');
-		free(str);
-		if (!var)
-			return (-3);
-		if (var[0][0] == '$')
-			is_env_var(init, var[0], new);
-		else if (!check_builtin(var[0]))
+		str = NULL;
+		while (tmp->word[i])
 		{
-			new->cmd = ft_strdup(var[0]);
-			if (!new->cmd)
-				return (free_str(var), -4);
-		}
-		else
-		{
-			new->env_var = tmp;
-			new->builtin = ft_strdup(var[0]);
-		}
-		if (!new->args)
-			new->args = var;
-		else
-			free_str(var);
-		return (nb);
-	}
-	return (1);
-}
-
-char	*is_env_var(t_init *init, char *word, t_lexer *new)
-{
-	int		i;
-	int		j;
-	int		len;
-	int		err;
-	char	*str;
-	char	*var;
-
-
-	i = 1;
-	j = 0;
-	str = ft_calloc(1, ft_strlen(new->quotes) + 1);
-	var = ft_calloc(1, ft_strlen(new->quotes) + 1);
-	printf("%s\n", new->quotes[0]);
-	while (new->quotes[0][j])
-	{
-		if (new->quotes[0][j] == '\'')
-		{
-			len = 0;
-			single_quotes(&j, &len, new->quotes[0], str);
-		}
-		else if (new->quotes[0][j] == '"')
-		{
-			len = 0;
-			double_quotes()
-			while (new->quotes[0][j] && new->quotes[0][j] != '"')
-				j++;
-			var = 
-		}
-		else
-		{
-			while (word[i])
+			var = NULL;
+			var_name = NULL;
+			if (tmp->word[i] != '$')
 			{
-				len = i - 1;
-				while (word[i] && word[i] != '$')
+				len = i;
+				while (tmp->word[i] && tmp->word[i] != '$')
 					i++;
-				var = ft_substr(word, &len, i);
-				if (!var)
-					return (NULL);
-				if (var[len - i + 1] == '?')
+				printf("i = [%c]\n", tmp->word[i]);
+				if (tmp->word[i] == '$')
+					i++;
+				if (tmp->word[i - 1] == '"' || tmp->word[i - 1] == '\'')
+					i--;
+				if (tmp->word[i + 1])
 				{
-					new->cmd = ft_itoa(g_exit_code);
-					if (!new->cmd)
-						return (NULL);
+					printf("1\n");
+					word = ft_substr(tmp->word, &len, i - len);
 				}
 				else
-				{
-					err = search_env_var(init->env, var, new, init);
-					if (err > 0)
-					{
-						err = search_env_var(init->var, var, new, init);
-						if (err < 0)
-							return (free(var), NULL);
-					}
-					else if (err < 0)
-						return (free(var), NULL);
-				}
-				free(var);
-				if (word[i])
-					i++;
+					word = ft_substr(tmp->word, &len, i - len);
+				printf("word [%s]\n", word);
+				if (str)
+					str = ft_strjoin(str, word);
+				else
+					str = ft_strdup(word);
+				i++;
 			}
+			//else quotes
+			if (tmp->word[i] == '\'')
+			{
+				i++;
+				len = i;
+				while (tmp->word[i] && tmp->word[i] != '\'')
+					i++;
+				word = ft_substr(tmp->word, &len, i - len);
+				if (str)
+					str = ft_strjoin(str, word);
+				else
+					str = ft_strdup(word);
+			}
+			else
+			{
+				if (tmp->word[i] == '"')
+					i++;
+				if (tmp->word[i] == '$')
+					i++;
+				len = i;
+				while ((tmp->word[len] >= 'a' && tmp->word[len] <= 'z')
+						|| (tmp->word[len] >= 'A' && tmp->word[len] <= 'Z')
+						|| (tmp->word[len] >= '0' && tmp->word[len] <= '9')
+						|| tmp->word[len] == '_' || tmp->word[len] == '?')
+					len++;
+				if (tmp->word[len] == '"')
+					len--;
+				printf("DEBUG len: %d\n", len);
+				var_name = ft_substr(tmp->word, &i, len - i);
+				//protection
+				printf("DEBUG var_name: [%s]\n", var_name);
+			}
+			if (var_name)
+			{
+				if (var_name[0] == '?')
+					var = ft_itoa(g_exit_code);
+				else
+				{
+					var = search_variable(var_name, var, init->env);
+					if (!var)
+						var = search_variable(var_name, var, init->var);
+				}
+				printf("DEBUG var: %s\n", var);
+				free(var_name);
+				var_name = NULL;
+			}
+			if (var)
+			{
+				len = 0;
+				if (str)
+					str = ft_strjoin(str, var);
+				else
+					str = ft_strdup(var);
+				free(var);
+			}
+			printf("DEBUG word[i]: [%c]\n", tmp->word[i]);
+			/*if (tmp->word[i] == '"' || tmp->word[i] =='\'')
+			{
+				i++;
+			}*/
 		}
+		printf("str: %s\n", str);
+		if (str)
+		{
+			free(tmp->word);
+			tmp->word = ft_strdup(str);
+			free(str);
+		}
+		printf("DEBUG word: %s\n", tmp->word);
+		tmp = tmp->next;
 	}
 	return ("ok");
 }

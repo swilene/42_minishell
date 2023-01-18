@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:08:36 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/17 17:40:45 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:55:24 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	is_unset(t_init *init, t_env **env, t_env **var);
 void	is_echo(t_init *init, t_lexer *lexer, int i);
 void	is_echo_var(t_init *init, t_lexer *lexer, int i);
 void	is_cd(t_lexer *tmp);
-char	*is_env_var(t_init *init, char *word, t_lexer *new);
+char	*is_env_var(t_list *tmp, t_init *init);
 int		is_heredoc(t_red *tmp, t_lexer *tmp_lexer, t_init *init);
 void	is_export(t_init *init, t_env **env, t_env **var);
 int		in_env(char *arg, t_env **env, char *quotes);
@@ -80,5 +80,6 @@ void	close_fd_heredoc(t_lexer *lexer);
 void	signal_fork(int signal);
 void	single_quotes(int *i, int *len, char *word, char *str);
 void	double_quotes(int *i, int *len, char *word, char *str);
+char	*search_variable(char *var_name, char *var, t_env *tmp);
 
 #endif

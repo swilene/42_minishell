@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:48:30 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/17 17:42:56 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:55:43 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,15 @@ void	lexer(t_init *init)
 	t_lexer	*new;
 	char	*word;
 
+	(void)word;
+	is_env_var(init->sentence, init);
 	tmp = init->sentence;
 	new = ft_lexernew();
 	if (!new)
 		return ;
 	if (!take_quotes(tmp, new, 0, 0))
 		return (free(new));
-	//env var
-	while (tmp)
+	/*while (tmp)
 	{
 		if (tmp->word[0] == '#')
 			break ;
@@ -104,5 +105,5 @@ void	lexer(t_init *init)
 	ft_lexeradd_back(&(init->lexer), new);
 	if (!init_files(init))
 		return ;
-	pipex(init);
+	pipex(init);*/
 }

@@ -6,7 +6,7 @@
 #    By: saguesse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/09 09:58:29 by saguesse          #+#    #+#              #
-#    Updated: 2023/01/17 17:40:11 by saguesse         ###   ########.fr        #
+#    Updated: 2023/01/18 15:38:16 by saguesse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC = ft_isalpha.c \
 	ft_strtrim.c \
 	ft_itoa.c \
 	ft_split.c \
+	ft_split_spaces.c \
 	ft_strmapi.c \
 	ft_striteri.c \
 	ft_strcmp.c \
