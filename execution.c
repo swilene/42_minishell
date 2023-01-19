@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:45:23 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/17 17:42:00 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:39:04 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	execution(t_lexer *lexer, t_init *init, int i)
 			is_unset(init, &(init->env), &(init->var));
 		else if (ft_strcmp(lexer->builtin, "echo") == 0)
 		{
-			if (lexer->env_var)
+			/*if (lexer->env_var)
 				is_echo_var(init, lexer, i);
-			else
+			else*/
 				is_echo(init, lexer, i);
 		}
 		else if (ft_strcmp(lexer->builtin, "cd") == 0)

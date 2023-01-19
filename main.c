@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:10:59 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/17 17:41:14 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:23:08 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*lst_env(t_init *init, char **envp)
 	init->var = NULL;
 	while (envp[i])
 	{
-		new = ft_envnew(NULL, NULL);
+		new = ft_envnew(NULL);
 		if (!new)
 			return (NULL);
 		new->str = ft_strdup(envp[i]);

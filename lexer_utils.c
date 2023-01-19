@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:31:17 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/12 12:09:01 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:15:58 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*take_args(t_list **tmp, t_lexer *new, int i, int j)
 		return (NULL);
 	while (j < i)
 	{
-		new->args[j] = remove_quotes((*tmp)->word, 0, 0);
+		new->args[j] = ft_strdup((*tmp)->word);
 		if (!new->args[j])
 			return (NULL);
 		free((*tmp)->word);
@@ -57,31 +57,5 @@ char	*take_args(t_list **tmp, t_lexer *new, int i, int j)
 			(*tmp) = (*tmp)->next;
 	}
 	new->args[j] = NULL;
-	return ("ok");
-}
-
-char	*take_quotes(t_list *tmp, t_lexer *new, int i, int j)
-{
-	t_list	*lst;
-
-	lst = tmp;
-	while (lst && lst->word[0] != '|' && lst->word[0] != '>' && lst->word[0]
-		!= '<')
-	{
-		i++;
-		lst = lst->next;
-	}
-	new->quotes = malloc(sizeof(new->quotes) * (i + 1));
-	if (!new->quotes)
-		return (NULL);
-	while (j < i)
-	{
-		new->quotes[j] = ft_strdup(tmp->word);
-		if (!new->quotes[j])
-			return (free_str(new->quotes), NULL);
-		j++;
-		tmp = tmp->next;
-	}
-	new->quotes[j] = NULL;
 	return ("ok");
 }

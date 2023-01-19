@@ -6,18 +6,14 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:48:30 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/18 11:55:43 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:51:59 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
 
-void	free_new_lexer(t_lexer *new, char *word)
+void	free_new_lexer(t_lexer *new)
 {
-	if (word)
-		free(word);
-	if (new->quotes)
-		free_str(new->quotes);
 	if (new->cmd)
 		free(new->cmd);
 	if (new->builtin)
@@ -33,77 +29,68 @@ void	lexer(t_init *init)
 {
 	t_list	*tmp;
 	t_lexer	*new;
-	char	*word;
 
-	(void)word;
 	is_env_var(init->sentence, init);
+	split_word(init->sentence);
 	tmp = init->sentence;
 	new = ft_lexernew();
 	if (!new)
 		return ;
-	if (!take_quotes(tmp, new, 0, 0))
-		return (free(new));
-	/*while (tmp)
+	while (tmp)
 	{
 		if (tmp->word[0] == '#')
 			break ;
-		word = remove_quotes(tmp->word, 0, 0);
-		if (!word)
-			return (free_new_lexer(new, word));
-		if (word[0] == '<' || word[0] == '>')
+		if (tmp->word[0] == '<' || tmp->word[0] == '>')
 		{
 			if (!(is_redirection(new, &tmp)))
-				return (free_new_lexer(new, word));
+				return (free_new_lexer(new));
 		}
-		else if ((word[0] >= 'a' && word[0] <= 'z') || (word[0]
-				>= 'A' && word[0] <= 'Z') || word[0] == '/')
+		else if (ft_isalnum(tmp->word[0]) == 1 || tmp->word[0] == '/'
+				|| tmp->word[0] == '$' || tmp->word[0] == '\'')
 		{	
-			if (!(check_builtin(word)))
+			if (!(check_builtin(tmp->word)))
 			{
-				if (!(check_envariables(word, init, tmp->word)))
+				if (!(check_envariables(tmp->word, init)))
 				{
-					new->cmd = ft_strdup(word);
+					new->cmd = ft_strdup(tmp->word);
 					if (!new->cmd)
-						return (free_new_lexer(new, word));
+						return (free_new_lexer(new));
 					if (!take_args(&tmp, new, 0, 0))
-						return (free_new_lexer(new, word));
+						return (free_new_lexer(new));
 				}
 				else
-					return (free_new_lexer(new, word));
+					return (free_new_lexer(new));
 			}
 			else
 			{
-				new->builtin = ft_strdup(word);
+				new->builtin = ft_strdup(tmp->word);
 				if (!new->builtin)
-					return (free_new_lexer(new, word));
-				free(word);
-				word = NULL;
+					return (free_new_lexer(new));
+				free(tmp->word);
 				if (!take_args(&tmp, new, 0, 0))
-					return (free_new_lexer(new, word));
+					return (free_new_lexer(new));
 			}
 		}
-		else if (word[0] == '|')
+		else if (tmp->word[0] == '|')
 		{
-			new = is_pipe(tmp, new, init, word);
+			new = is_pipe(tmp, new, init);
 			if (!new)
 				return ;
-			if (!take_quotes(tmp->next, new, 0, 0))
-				return (free(new));
 		}
-		else if (word[0] == '.' && word[1] == '/')
+		else if (tmp->word[0] == '.' && tmp->word[1] == '/')
 		{
-			new->program = ft_strdup(word);
+			new->program = ft_strdup(tmp->word);
 			if (!new->program)
-				return (free_new_lexer(new, word));
+				return (free_new_lexer(new));
 			if (!take_args(&tmp, new, 0, 0))
-				return (free_new_lexer(new, word));
+				return (free_new_lexer(new));
 		}
-		free(word);
+		free(tmp->word);
 		if (tmp)
 			tmp = tmp->next;
 	}
 	ft_lexeradd_back(&(init->lexer), new);
 	if (!init_files(init))
 		return ;
-	pipex(init);*/
+	pipex(init);
 }

@@ -6,7 +6,7 @@
 /*   By: tchantro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 13:48:48 by tchantro          #+#    #+#             */
-/*   Updated: 2023/01/12 17:34:40 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:30:05 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	big_arg_len(char *arg)
 	return (i);
 }
 
-int	in_env(char *arg, t_env **env, char *quotes)
+int	in_env(char *arg, t_env **env)
 {
 	t_env	*first;
 	int		len;
@@ -39,8 +39,6 @@ int	in_env(char *arg, t_env **env, char *quotes)
 				return (2);
 			free((*env)->str);
 			(*env)->str = new;
-			free((*env)->quote);
-			(*env)->quote = ft_strdup(quotes);
 			(*env) = first;
 			return (1);
 		}
@@ -50,7 +48,7 @@ int	in_env(char *arg, t_env **env, char *quotes)
 	return (0);
 }
 
-int	in_var(char *arg, t_env **env, t_env **var, char *quotes)
+int	in_var(char *arg, t_env **env, t_env **var)
 {
 	t_env	*first_var;
 	t_env	*tmp;
@@ -67,7 +65,7 @@ int	in_var(char *arg, t_env **env, t_env **var, char *quotes)
 			if (!new)
 				return (2);
 			ft_lstdelone(tmp, var, &first_var);
-			ft_envadd_back(env, ft_envnew(new, quotes));
+			ft_envadd_back(env, ft_envnew(new));
 			if (*var)
 				(*var) = first_var;
 			return (1);

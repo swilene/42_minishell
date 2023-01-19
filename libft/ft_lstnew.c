@@ -6,13 +6,13 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 09:51:29 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/12 17:00:02 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:39:19 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_env	*ft_envnew(char	*str, char *quotes)
+t_env	*ft_envnew(char	*str)
 {
 	t_env	*head;
 
@@ -20,10 +20,6 @@ t_env	*ft_envnew(char	*str, char *quotes)
 	if (!head)
 		return (NULL);
 	head->str = str;
-	if (quotes)
-		head->quote = ft_strdup(quotes);
-	else
-		head->quote = NULL;
 	head->next = NULL;
 	return (head);
 }
@@ -51,7 +47,6 @@ t_lexer	*ft_lexernew(void)
 	head->prog = NULL;
 	head->builtin = NULL;
 	head->args = NULL;
-	head->quotes = NULL;
 	head->env_var = NULL;
 	head->program = NULL;
 	head->fd_in = 0;

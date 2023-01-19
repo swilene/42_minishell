@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:08:36 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/18 11:55:24 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:31:11 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,11 @@ void	lexer(t_init *init);
 char	*take_quotes(t_list *tmp, t_lexer *new, int i, int j);
 char	*take_args(t_list **tmp, t_lexer *new, int i, int j);
 int		check_builtin(char *word);
-void    free_new_lexer(t_lexer *new, char *word);
+void    free_new_lexer(t_lexer *new);
 char	**get_path(char **envp);
-void	free_list(t_init *init);
 char	*is_redirection(t_lexer *lexer, t_list **sentence);
 void	free_list(t_init *init);
-t_lexer	*is_pipe(t_list *tmp, t_lexer *new, t_init *init, char *word);
+t_lexer	*is_pipe(t_list *tmp, t_lexer *new, t_init *init);
 char	*init_files(t_init *init);
 void	signal_int(int signal);
 void	signal_heredoc(int signal);
@@ -54,11 +53,10 @@ void	free_before_exit(t_init *init);
 void	do_dup(t_lexer *tmp, t_init *init, int i);
 void	close_pipes_before_dup(t_init *init, int i, int j);
 void	close_after_dup(t_init *init, t_lexer *tmp, int i);
-void	free_before_exit(t_init *init);
 int		check_before_dup(t_lexer *tmp, t_init *init);
 char	*take_quotes(t_list *tmp, t_lexer *new, int i, int j);
 int		check_builtin(char *word);
-int		check_envariables(char *word, t_init *init, char *quotes);
+int		check_envariables(char *word, t_init *init);
 int		search_env_var(t_env *tmp, char *word, t_lexer *new, t_init *init);
 char	*search_variabl(char *var_name, t_env *tmp, t_lexer *lexer);
 char	*write_variable(int *i, char *str, t_lexer *lexer, t_init *init);
@@ -72,8 +70,8 @@ void	is_cd(t_lexer *tmp);
 char	*is_env_var(t_list *tmp, t_init *init);
 int		is_heredoc(t_red *tmp, t_lexer *tmp_lexer, t_init *init);
 void	is_export(t_init *init, t_env **env, t_env **var);
-int		in_env(char *arg, t_env **env, char *quotes);
-int		in_var(char *arg, t_env **env, t_env **var, char *quotes);
+int		in_env(char *arg, t_env **env);
+int		in_var(char *arg, t_env **env, t_env **var);
 void	is_exit(t_init *init, t_lexer *lexer);
 void	print_list(t_env **list);
 void	close_fd_heredoc(t_lexer *lexer);
@@ -81,5 +79,6 @@ void	signal_fork(int signal);
 void	single_quotes(int *i, int *len, char *word, char *str);
 void	double_quotes(int *i, int *len, char *word, char *str);
 char	*search_variable(char *var_name, char *var, t_env *tmp);
+void	split_word(t_list *tmp);
 
 #endif

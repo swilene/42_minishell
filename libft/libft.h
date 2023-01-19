@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:12:03 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/18 15:37:10 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 16:51:34 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 typedef struct s_env
 {
 	char			*str;
-	char			*quote;
 	struct s_env	*next;
 }	t_env;
 
@@ -44,7 +43,6 @@ typedef struct s_lexer
 	char			*builtin;
 	char			**args;
 	t_env			*env_var;
-	char			**quotes;
 	char			*program;
 	char			*file_in;
 	int				fd_in;
@@ -116,13 +114,14 @@ void	ft_dellexer(t_lexer **lexer);
 void	free_str(char **str);
 t_lexer	*ft_lexernew(void);
 t_red	*ft_rednew(void);
-t_env	*ft_envnew(char *str, char *quotes);
+t_env	*ft_envnew(char *str);
 char	*remove_quotes(char *word, int i, int len);
 int		ft_envsize(t_env *env);
 int		ft_lexersize(t_lexer *lexer);
 void	ft_lstdelone(t_env *tmp, t_env **env, t_env **first);
 char	*ft_strcpy(char *dest, char *src);
 int		str_isdigit(char *str);
+void	ft_lst_add_after(t_list **tmp, t_list *after, t_list *new);
 
 /*void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst, void (*del)(void *));

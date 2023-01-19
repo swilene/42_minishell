@@ -6,7 +6,7 @@
 #    By: saguesse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/07 14:54:21 by saguesse          #+#    #+#              #
-#    Updated: 2023/01/12 14:49:53 by saguesse         ###   ########.fr        #
+#    Updated: 2023/01/19 17:54:01 by saguesse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,14 +47,14 @@ SRC = main.c \
 	is_unset.c \
 	is_exit.c \
 	is_echo.c \
-	is_echo_var.c \
-	is_env_var.c \
 	variable.c \
 	print_list.c \
 	init_files.c \
 	close_fds.c \
-	is_echo_utils.c \
 	is_export_bis.c \
+	is_env_var.c \
+	split_word.c \
+	search_variable.c \
 	
 HEADER = structures.h \
 	prototypes.h \

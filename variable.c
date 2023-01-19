@@ -6,7 +6,7 @@
 /*   By: tchantro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:13:36 by tchantro          #+#    #+#             */
-/*   Updated: 2023/01/12 14:35:17 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 16:50:29 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	check_env(t_init *init, t_env *tmp)
 	return (0);
 }
 
-int	check_envariables(char *word, t_init *init, char *quotes)
+int	check_envariables(char *word, t_init *init)
 {
 	int		i;
 	t_env	*tmp;
@@ -93,7 +93,7 @@ int	check_envariables(char *word, t_init *init, char *quotes)
 			var = ft_strdup(word);
 			if (!var)
 				return (1);
-			tmp = ft_envnew(var, quotes);
+			tmp = ft_envnew(var);
 			if (!tmp)
 				return (free(var), 2);
 			if (check_env(init, tmp) == 0)

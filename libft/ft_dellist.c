@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 13:00:25 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/09 11:23:26 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:39:50 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	ft_dellexer(t_lexer **lexer)
 		lexer_tmp = (*lexer)->next;
 		free_red(&(*lexer)->red);
 		free_tmp(*lexer);
-		free_str((*lexer)->quotes);
 		free(*lexer);
 		(*lexer) = lexer_tmp;
 	}

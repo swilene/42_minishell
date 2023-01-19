@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 11:27:02 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/12 17:23:45 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:24:37 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	free_var(t_init *init)
 	{
 		tmp = var->next;
 		free(var->str);
-		free(var->quote);
 		free(var);
 		var = tmp;
 	}
@@ -39,11 +38,6 @@ void	free_env(t_init *init)
 	{
 		tmp = env->next;
 		free(env->str);
-		if (env->quote)
-		{
-			free(env->quote);
-			env->quote = NULL;
-		}
 		free(env);
 		env = tmp;
 	}

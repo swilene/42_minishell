@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_echo_utils.c                                    :+:      :+:    :+:   */
+/*   search_variable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:21:52 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/18 11:07:44 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:45:19 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,4 @@ char	*search_variable(char *var_name, char *var, t_env *tmp)
 		tmp = tmp->next;
 	}
 	return (NULL);
-}
-
-char	*write_variable(int *i, char *str, t_lexer *lexer, t_init *init)
-{
-	char	*var_name;
-	int		j;
-
-	j = *i;
-	if (str[*i] == '?')
-	{
-		var_name = ft_itoa(g_exit_code);
-		if (write(lexer->fd_out, var_name, ft_strlen(var_name)) < 0)
-			return (perror("echo"), NULL);
-	}
-	else
-	{
-		while (str[j] && ((str[j] >= 'a' && str[j] <= 'z') || (str[j] >= 'A'
-				&& str[j] <= 'Z') || str[j] == '_'))
-			j++;
-		var_name = ft_substr(str, i, j - (*i));
-		if (!var_name)
-			return (printf("var_name: %s\n", strerror(ENOMEM)), NULL);
-		(*i)--;
-		if (!search_variable(var_name, NULL, init->env))
-			return (free(var_name), NULL);
-		if (!search_variable(var_name, NULL, init->var))
-			return (free(var_name), NULL);
-	}
-	free(var_name);
-	(*i)++;
-	return ("ok");
 }

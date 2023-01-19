@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:23:18 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/12 17:15:40 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:30:09 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ int	verif_export_args(char *str)
 	return (0);
 }
 
-void	big_arg(char *arg, char *quotes, t_env **env, t_env **var)
+void	big_arg(char *arg, t_env **env, t_env **var)
 {
 	char	*new;
 
-	if (in_env(arg, env, quotes) == 0)
+	if (in_env(arg, env) == 0)
 	{
-		if (in_var(arg, env, var, quotes) == 0)
+		if (in_var(arg, env, var) == 0)
 		{
 			new = ft_strdup(arg);
 			if (!new)
 				return ;
-			ft_envadd_back(env, ft_envnew(new, quotes));
+			ft_envadd_back(env, ft_envnew(new));
 		}
 	}
 }
@@ -48,7 +48,6 @@ void	little_arg(char *arg, t_env **env, t_env **var)
 	t_env	*tmp;
 	int		len;
 	char	*res;
-	char	*quotes;
 
 	first_var = (*var);
 	len = ft_strlen(arg);
@@ -58,12 +57,10 @@ void	little_arg(char *arg, t_env **env, t_env **var)
 		if (ft_strncmp((*var)->str, arg, len) == 0 && (*var)->str[len] == '=')
 		{
 			res = ft_strdup((*var)->str);
-			quotes = ft_strdup((*var)->quote);
-			if (!res || !quotes)
+			if (!res)
 				return ;
 			ft_lstdelone(tmp, var, &first_var);
-			ft_envadd_back(env, ft_envnew(res, quotes));
-			free(quotes);
+			ft_envadd_back(env, ft_envnew(res));
 			if (*var)
 				(*var) = first_var;
 			return ;
@@ -82,7 +79,7 @@ void	is_export(t_init *init, t_env **env, t_env **var)
 	while (init->lexer->args[i])
 	{
 		if (verif_export_args(init->lexer->args[i]) == 1)
-			big_arg(init->lexer->args[i], init->lexer->quotes[i], env, var);
+			big_arg(init->lexer->args[i], env, var);
 		else
 			little_arg(init->lexer->args[i], env, var);
 		i++;

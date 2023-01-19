@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 14:40:46 by saguesse          #+#    #+#             */
-/*   Updated: 2022/12/30 12:41:16 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/19 12:17:57 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	words(const char *s, char c)
 	return (nb_words);
 }
 
-void	clear_str(char **str, int j)
+static void	clear_str(char **str, int j)
 {
 	while (j >= 0)
 	{
