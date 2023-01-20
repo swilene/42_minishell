@@ -6,7 +6,7 @@
 /*   By: tchantro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 17:13:36 by tchantro          #+#    #+#             */
-/*   Updated: 2023/01/19 16:50:29 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:03:17 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,6 @@ int	check_envariables(char *word, t_init *init)
 				if (check_var(init, tmp) == 0)
 					ft_envadd_back(&(init->var), tmp);
 			}
-			printf ("Print env :\n");
-			print_list(&init->env);
-			printf ("Print var :\n");
-			print_list(&init->var);
 			return (3);
 		}
 		i++;

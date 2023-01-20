@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:54:54 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/19 17:51:34 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:08:52 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*check_variable(int *i, char *str, t_init *init)
 	(*i)++;
 	j = *i;
 	var = NULL;
-	var_name =  NULL;
+	var_name = NULL;
 	if (str[*i] == '?')
 	{
 		var = ft_itoa(g_exit_code);
@@ -86,7 +86,7 @@ char	*is_env_var(t_list *tmp, t_init *init)
 			{
 				j = i;
 				while (tmp->word[i] && tmp->word[i] != '"'
-						&& tmp->word[i] != '\'' && tmp->word[i] != '$')
+					&& tmp->word[i] != '\'' && tmp->word[i] != '$')
 					i++;
 				i--;
 				if (i - j >= 0)

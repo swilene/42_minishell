@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:30:04 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/17 10:14:51 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:04:30 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	close_files(t_init *init)
 			if (close(tmp->fd_in) < 0)
 				perror(tmp->file_in);
 		}
-		if (/*!init->nb_pipe && */tmp->fd_out > 0 && tmp->fd_out != STDOUT_FILENO
+		if (tmp->fd_out > 0 && tmp->fd_out != STDOUT_FILENO
 			&& tmp->fd_out != STDERR_FILENO)
 		{
 			if (close(tmp->fd_out) < 0)

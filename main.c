@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:10:59 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/19 17:23:08 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:59:12 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void	minishell(t_init *init)
 		free(init->envp);
 		if (init->path)
 			free_str(init->path);
-		//printf("exit_code: %d\n", g_exit_code);
 	}
 }
 
@@ -99,13 +98,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		if (!(lst_env(&init, envp)))
 			return (free_env(&init), 1);
-		/*init.path = get_path(envp);
-		if (!init.path)
-		{
-			if (init.path)
-				free_str(init.path);
-			return (free_env(&init), 1);
-		}*/
 		signal(SIGINT, &signal_int);
 		signal(SIGQUIT, SIG_IGN);
 		minishell(&init);

@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:23:18 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/19 17:30:09 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:00:47 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,4 @@ void	is_export(t_init *init, t_env **env, t_env **var)
 			little_arg(init->lexer->args[i], env, var);
 		i++;
 	}
-	/*printf ("Print env :\n");
-	print_list(env);
-	printf ("Print var :\n");
-	print_list(var);*/
 }

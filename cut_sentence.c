@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:05:01 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/13 16:26:33 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:05:32 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_quote(char *line, int *j, int quotes)
 	if (line[*j] == '\'')
 	{
 		(*j)++;
-		while (line[*j] && (quotes % 2 || line[(*j)] != ' '))
+		while (line[*j] && (quotes % 2 || ft_isspace(line[(*j)]) == 0))
 		{
 			if (line[*j] == '\'')
 				quotes++;
@@ -27,7 +27,7 @@ int	is_quote(char *line, int *j, int quotes)
 	else if (line[*j] == '"')
 	{
 		(*j)++;
-		while (line[*j] && (quotes % 2 || line[(*j)] != ' '))
+		while (line[*j] && (quotes % 2 || ft_isspace(line[(*j)]) == 0))
 		{
 			if (line[*j] == '"')
 				quotes++;
@@ -41,12 +41,11 @@ int	is_quote(char *line, int *j, int quotes)
 
 int	is_word(char *line, int *j)
 {
-	if ((line[*j] >= 'a' && line[*j] <= 'z') || (line[*j] >= 'A'
-			&& line[*j] <= 'Z') || (line[*j] >= '0' && line[*j] <= '9')
-		|| line[*j] == '#' || line[*j] == '-' || line[*j] == '.' || line[*j]
+	if (ft_isalnum(line[*j]) == 1 || ft_isspace(line[*j]) == 1 || line[*j] == '#'
+		|| line[*j] == '-' || line[*j] == '.' || line[*j]
 		== '~' || line[*j] == '/' || line[*j] == '=' || line[*j] == '[')
 	{
-		while (line[*j] && (!(line[*j] == ' ' || line[*j] == '|')))
+		while (line[*j] && (!(ft_isspace(line[*j]) == 1 || line[*j] == '|')))
 		{
 			if (line[*j] == '"' || line[*j] == '\'')
 				is_quote(line, j, 1);
@@ -63,21 +62,18 @@ int	is_not_word(char *line, int *j)
 {
 	if (line[*j] == '$')
 	{
-		while (line[*j] && line[*j] != ' ')
+		while (line[*j] && ft_isspace(line[*j]) == 0)
 		{
 			if (line[*j] == '\'' || line[*j] == '"')
 				is_quote(line, j, 1);
 			(*j)++;
 		}
 	}
-	else if (!((line[*j] >= 'a' && line[*j] <= 'z') || (line[*j] >= 'A'
-				&& line[*j] < 'Z') || (line[*j] >= '0' && line[*j] <= '9')
-			|| line[*j] == ' ' || line[*j] == '\0' || line[*j] == '/'))
+	else if (!(ft_isalnum(line[*j] == 1) || ft_isspace(line[*j]) == 1
+			|| line[*j] == '\0' || line[*j] == '/'))
 	{
-		while (!((line[*j] >= 'a' && line[*j] <= 'z') || (line[*j] >= 'A'
-					&& line[*j] < 'Z') || (line[*j] >= '0' && line[*j] <= '9')
-				|| line[*j] == ' ' || line[*j] == '$' || line[*j] == '\0'
-				|| line[*j] == '/'))
+		while (!(ft_isalnum(line[*j] == 1) || ft_isspace(line[*j]) == 1
+				|| line[*j] == '$' || line[*j] == '\0' || line[*j] == '/'))
 			(*j)++;
 	}
 	else
@@ -110,7 +106,7 @@ void	cut_sentence(t_init *init, char *line, int *i, int j)
 	while (line[j])
 	{
 		j = *i;
-		while (line[j] == ' ')
+		while (ft_isspace(line[j]) == 1)
 				j++;
 		spaces = j - *i;
 		if (is_word(line, &j))
@@ -122,7 +118,6 @@ void	cut_sentence(t_init *init, char *line, int *i, int j)
 		if (*i != j)
 		{
 			new = ft_lstnew(ft_substr(line, i, j - *i));
-			//printf("%s\n", new->word);
 			if (!new)
 				return ;
 			ft_lstadd_back(&(init->sentence), new);

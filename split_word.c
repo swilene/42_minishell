@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:12:04 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 10:55:34 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:11:04 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ void	split_word(t_list *tmp)
 				while (str[i])
 				{
 					new = ft_lstnew(NULL);
-					new->word = ft_strdup(str[i]); 
-					printf("%s\n", new->word);
-					printf("%p\n", after);
-					printf("%s\n", tmp->word);
+					new->word = ft_strdup(str[i]);
 					ft_lst_add_after(&tmp, after, new);
 					i++;
 				}

@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:08:36 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 10:51:28 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:13:51 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	lexer(t_init *init);
 char	*take_quotes(t_list *tmp, t_lexer *new, int i, int j);
 char	*take_args(t_list **tmp, t_lexer *new, int i, int j);
 int		check_builtin(char *word);
-void    free_new_lexer(t_lexer *new);
+void	free_new_lexer(t_lexer *new);
 char	**get_path(char **envp);
 char	*is_redirection(t_lexer *lexer, t_list **sentence);
 void	free_list(t_init *init);
@@ -72,7 +72,6 @@ void	is_export(t_init *init, t_env **env, t_env **var);
 int		in_env(char *arg, t_env **env);
 int		in_var(char *arg, t_env **env, t_env **var);
 void	is_exit(t_init *init, t_lexer *lexer);
-void	print_list(t_env **list);
 void	close_fd_heredoc(t_lexer *lexer);
 void	signal_fork(int signal);
 void	single_quotes(int *i, int *len, char *word, char *str);

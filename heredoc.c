@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:59:09 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/16 16:17:26 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:05:55 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,12 @@ int	is_heredoc(t_red *tmp_red, t_lexer *tmp_lexer, t_init *init)
 	waitpid(pid, &wstatus, 0);
 	if (WIFEXITED(wstatus))
 		g_exit_code = WEXITSTATUS(wstatus);
-	//signal(SIGINT, &signal_int);
 	if (close(tmp_lexer->fd_heredoc[1]) < 0)
 		perror("heredoc[1]");
 	if (!tmp_lexer->cmd && !tmp_lexer->builtin)
 	{
 		if (close(tmp_lexer->fd_heredoc[0]) < 0)
 			perror("heredoc[0]");
-		if (init->nb_pipe)
-			init->nb_pipe--;
 	}
 	return (0);
 }

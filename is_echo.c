@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:16:41 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 10:52:01 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:18:39 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,33 @@ void	is_echo(t_lexer *lexer)
 		flags(lexer, &j, &n);
 	while (lexer->args[j])
 	{
-		if (write(lexer->fd_out, lexer->args[j], ft_strlen(lexer->args[j])) < 0)
-			perror("echo");
+		if (lexer->fd_out)
+		{
+			if (write(lexer->fd_out, lexer->args[j], ft_strlen(lexer->args[j])) < 0)
+				return (perror("echo"));
+		}
+		else
+			printf("%s", lexer->args[j]);
 		if (lexer->args[j + 1])
 		{
-			if (write(lexer->fd_out, " ", 1) < 0)
-				perror("echo");
+			if (lexer->fd_out)
+			{
+				if (write(lexer->fd_out, " ", 1) < 0)
+					return (perror("echo"));
+			}
+			else
+				printf(" ");
 		}
 		j++;
 	}
 	if (!n)
 	{
-		if (write(lexer->fd_out, "\n", 1) < 0)
-			return (perror("echo"));
+		if (lexer->fd_out)
+		{
+			if (write(lexer->fd_out, "\n", 1) < 0)
+				return (perror("echo"));
+		}
+		else
+			printf("\n");
 	}
 }

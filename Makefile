@@ -6,7 +6,7 @@
 #    By: saguesse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/07 14:54:21 by saguesse          #+#    #+#              #
-#    Updated: 2023/01/19 17:54:01 by saguesse         ###   ########.fr        #
+#    Updated: 2023/01/20 18:02:10 by saguesse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ SRC = main.c \
 	is_exit.c \
 	is_echo.c \
 	variable.c \
-	print_list.c \
 	init_files.c \
 	close_fds.c \
 	is_export_bis.c \
@@ -87,6 +86,7 @@ fclean: clean
 	rm -f $(NAME)
 	make fclean -C $(LIBFT_PATH)
 
-re: fclean all
+re: fclean
+	make all
 
 .PHONY: all clean fclean re

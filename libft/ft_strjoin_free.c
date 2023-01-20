@@ -1,35 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_env.c                                           :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/05 17:09:20 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 18:10:21 by saguesse         ###   ########.fr       */
+/*   Created: 2023/01/20 16:12:54 by saguesse          #+#    #+#             */
+/*   Updated: 2023/01/20 16:15:15 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "prototypes.h"
+#include "libft.h"
 
-void	is_env(t_lexer *tmp, t_init *init)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
-	t_env	*first;
+	int		i1;
+	int		i2;
+	int		j;
+	char	*str;
 
-	first = init->env;
-	while (init->env)
+	i1 = ft_strlen(s1);
+	i2 = ft_strlen(s2);
+	j = 0;
+	str = (char *)malloc(sizeof(*str) * (i1 + i2) + 1);
+	if (!(str))
+		return (NULL);
+	while (s1[j])
 	{
-		if (tmp->fd_out)
-		{
-			if (write(tmp->fd_out, init->env->str, ft_strlen(init->env->str))
-				< 0)
-				return (perror("env"));
-			if (write(tmp->fd_out, "\n", 1) < 0)
-				return (perror("env"));
-		}
-		else
-			printf("%s\n", init->env->str);
-		init->env = init->env->next;
+		str[j] = s1[j];
+		j++;
 	}
-	init->env = first;
+	j = 0;
+	while (s2[j])
+	{
+		str[i1 + j] = s2[j];
+		j++;
+	}
+	str[i1 + j] = '\0';
+	free(s1);
+	return (str);
 }

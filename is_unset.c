@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:23:44 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/10 13:21:19 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:01:04 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,4 @@ void	is_unset(t_init *init, t_env **env, t_env **var)
 		}
 		j++;
 	}
-	/*printf ("Print env :\n");
-	print_list(env);
-	printf ("Print var :\n");
-	print_list(var);*/
 }

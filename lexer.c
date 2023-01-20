@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:48:30 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 10:33:58 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:01:44 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	lexer(t_init *init)
 				return (free_new_lexer(new));
 		}
 		else if (ft_isalnum(tmp->word[0]) == 1 || tmp->word[0] == '/'
-				|| tmp->word[0] == '$' || tmp->word[0] == '\'')
+			|| tmp->word[0] == '$' || tmp->word[0] == '\'')
 		{	
 			if (!(check_builtin(tmp->word)))
 			{
@@ -84,7 +84,6 @@ void	lexer(t_init *init)
 			if (!take_args(&tmp, new, 0, 0))
 				return (free_new_lexer(new));
 		}
-		//free(tmp->word);
 		if (tmp)
 			tmp = tmp->next;
 	}
