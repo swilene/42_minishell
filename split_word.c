@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:12:04 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/19 16:27:50 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 10:55:34 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,12 @@ void	split_word(t_list *tmp)
 		if (!tmp->word[i])
 		{
 			str = ft_split_spaces(tmp->word);
-
-
 			free(tmp->word);
 			i = 0;
 			while (str[i])
 				i++;
 			tmp->word = ft_strdup(str[0]);
-			if (i == 1)
-				tmp = tmp->next;
-			else
+			if (i > 1)
 			{
 				i = 1;
 				after = tmp->next;
@@ -57,6 +53,6 @@ void	split_word(t_list *tmp)
 			}
 			free_str(str);
 		}
-		tmp = after;
+		tmp = tmp->next;
 	}
 }

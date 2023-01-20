@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:48:30 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/19 17:51:59 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 10:33:58 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	lexer(t_init *init)
 				new->builtin = ft_strdup(tmp->word);
 				if (!new->builtin)
 					return (free_new_lexer(new));
-				free(tmp->word);
 				if (!take_args(&tmp, new, 0, 0))
 					return (free_new_lexer(new));
 			}
@@ -85,7 +84,7 @@ void	lexer(t_init *init)
 			if (!take_args(&tmp, new, 0, 0))
 				return (free_new_lexer(new));
 		}
-		free(tmp->word);
+		//free(tmp->word);
 		if (tmp)
 			tmp = tmp->next;
 	}

@@ -6,22 +6,16 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:09:20 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/16 15:12:58 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/20 10:50:38 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
 
-void	is_env(t_init *init, t_lexer *tmp, int i)
+void	is_env(t_lexer *tmp, t_init *init)
 {
 	t_env	*first;
 
-	(void)init;
-	(void)i;
-	/*if (init->nb_pipe && i != init->nb_pipe)
-		tmp->fd_out = init->fd_pipe[i][1];
-	else if (!tmp->fd_out)
-		tmp->fd_out = STDOUT_FILENO;*/
 	first = init->env;
 	while (init->env)
 	{
