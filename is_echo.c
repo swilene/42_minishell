@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:16:41 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 17:18:39 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 16:43:20 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	flags(t_lexer *lexer, int *j, int *n)
 	}
 }
 
-void	is_echo(t_lexer *lexer)
+void	is_echo(t_lexer *lexer, t_init *init)
 {
 	int	j;
 	int	n;
@@ -45,7 +45,7 @@ void	is_echo(t_lexer *lexer)
 		flags(lexer, &j, &n);
 	while (lexer->args[j])
 	{
-		if (lexer->fd_out)
+		if (!init->nb_pipe && lexer->fd_out)
 		{
 			if (write(lexer->fd_out, lexer->args[j], ft_strlen(lexer->args[j])) < 0)
 				return (perror("echo"));
@@ -54,7 +54,7 @@ void	is_echo(t_lexer *lexer)
 			printf("%s", lexer->args[j]);
 		if (lexer->args[j + 1])
 		{
-			if (lexer->fd_out)
+			if (!init->nb_pipe && lexer->fd_out)
 			{
 				if (write(lexer->fd_out, " ", 1) < 0)
 					return (perror("echo"));
@@ -66,7 +66,7 @@ void	is_echo(t_lexer *lexer)
 	}
 	if (!n)
 	{
-		if (lexer->fd_out)
+		if (!init->nb_pipe && lexer->fd_out)
 		{
 			if (write(lexer->fd_out, "\n", 1) < 0)
 				return (perror("echo"));

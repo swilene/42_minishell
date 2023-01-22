@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:09:20 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 18:10:21 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 16:39:06 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	is_env(t_lexer *tmp, t_init *init)
 	first = init->env;
 	while (init->env)
 	{
-		if (tmp->fd_out)
+		if (!init->nb_pipe && tmp->fd_out)
 		{
 			if (write(tmp->fd_out, init->env->str, ft_strlen(init->env->str))
 				< 0)

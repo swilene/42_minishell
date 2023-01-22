@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:49:31 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/22 15:57:39 by tchantro         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:01:05 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,23 @@ int	init_fd_pipe(t_init *init)
 	return (0);
 }
 
+int	pipex_fork(t_lexer *tmp, t_init *init, int i)
+{
+	if (tmp->cmd || tmp->program || init->nb_pipe)
+	{
+		tmp->pid = fork();
+		if (tmp->pid < 0)
+			return (perror("fork()"), 1);
+		signal(SIGINT, &signal_fork);
+		signal(SIGQUIT, &signal_fork);
+		if (tmp->pid == 0)
+			do_dup(tmp, init, i);
+	}
+	else
+		do_dup(tmp, init, i);
+	return (0);
+}
+
 int	pipex(t_init *init)
 {
 	int		i;
@@ -53,18 +70,8 @@ int	pipex(t_init *init)
 	{
 		if (tmp->cmd || tmp->builtin || tmp->program)
 		{
-			if (tmp->cmd || tmp->program || init->nb_pipe)
-			{
-				tmp->pid = fork();
-				if (tmp->pid < 0)
-					return (perror("fork()"), 3);
-				signal(SIGINT, &signal_fork);
-				signal(SIGQUIT, &signal_fork);
-				if (tmp->pid == 0)
-					do_dup(tmp, init, i);
-			}
-			else
-				do_dup(tmp, init, i);
+			if (pipex_fork(tmp, init, i))
+				return (2);
 		}
 		i++;
 		tmp = tmp->next;
