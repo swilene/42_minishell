@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:21:52 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/19 17:45:19 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:44:50 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_exit_code;
 
-char	*search_variable(char *var_name, char *var, t_env *tmp)
+int	search_variable(char *var_name, char **var, t_env *tmp)
 {
 	int		len;
 
@@ -24,12 +24,12 @@ char	*search_variable(char *var_name, char *var, t_env *tmp)
 		if (ft_strnstr(tmp->str, var_name, len) && tmp->str[len] == '=')
 		{
 			len++;
-			var = ft_substr(tmp->str, &len, ft_strlen(tmp->str) - len);
-			if (!var)
-				return (printf("var: %s\n", strerror(ENOMEM)), NULL);
-			return (var);
+			*var = ft_substr(tmp->str, &len, ft_strlen(tmp->str) - len);
+			if (!(*var))
+				return (printf("ft_substr: %s\n", strerror(ENOMEM)), 1);
+			return (0);
 		}
 		tmp = tmp->next;
 	}
-	return (NULL);
+	return (2);
 }

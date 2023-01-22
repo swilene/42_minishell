@@ -6,7 +6,7 @@
 #    By: saguesse <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/07 14:54:21 by saguesse          #+#    #+#              #
-#    Updated: 2023/01/20 18:02:10 by saguesse         ###   ########.fr        #
+#    Updated: 2023/01/22 18:52:08 by saguesse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRC = main.c \
 	is_env_var.c \
 	split_word.c \
 	search_variable.c \
+	check_variable.c \
 	
 HEADER = structures.h \
 	prototypes.h \

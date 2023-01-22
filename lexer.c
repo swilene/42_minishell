@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:48:30 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/22 17:23:01 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:42:15 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	lexer(t_init *init)
 	t_list	*tmp;
 	t_lexer	*new;
 
-	is_env_var(init->sentence, init);
+	if (is_env_var(init->sentence, init))
+		return ;
 	if (split_word(init->sentence))
 		return ;
 	tmp = init->sentence;
