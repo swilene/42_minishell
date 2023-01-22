@@ -6,18 +6,71 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:12:04 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 18:11:04 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:05:13 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
 
-void	split_word(t_list *tmp)
+int	big_str(t_list *tmp, char **str)
+{
+	int		i;
+	t_list	*new;
+	t_list	*after;
+
+	i = 1;
+	after = tmp->next;
+	while (str[i])
+	{
+		new = ft_lstnew(NULL);
+		if (!new)
+		{
+			free_str(str);
+			return (printf("ft_lstnew: %s\n", strerror(ENOMEM)), 1);
+		}
+		new->word = ft_strdup(str[i]);
+		if (!new->word)
+		{
+			free(new);
+			free_str(str);
+			return (printf("ft_strdup: %s\n", strerror(ENOMEM)), 2);
+		}
+		ft_lst_add_after(&tmp, after, new);
+		i++;
+	}
+	return (0);
+}
+
+int	not_variable(t_list *tmp)
 {
 	int		i;
 	char	**str;
-	t_list	*new;
-	t_list	*after;
+
+	str = ft_split_spaces(tmp->word);
+	if (!str)
+		return (printf("split_spaces: %s\n", strerror(ENOMEM)), 1);
+	free(tmp->word);
+	i = 0;
+	while (str[i])
+		i++;
+	tmp->word = ft_strdup(str[0]);
+	if (!tmp->word)
+	{
+		free_str(str);
+		return (printf("ft_strdup: %s\n", strerror(ENOMEM)), 2);
+	}
+	if (i > 1)
+	{
+		if (big_str(tmp, str))
+			return (3);
+	}
+	free_str(str);
+	return (0);
+}
+
+int	split_word(t_list *tmp)
+{
+	int		i;
 
 	while (tmp)
 	{
@@ -30,26 +83,10 @@ void	split_word(t_list *tmp)
 		}
 		if (!tmp->word[i])
 		{
-			str = ft_split_spaces(tmp->word);
-			free(tmp->word);
-			i = 0;
-			while (str[i])
-				i++;
-			tmp->word = ft_strdup(str[0]);
-			if (i > 1)
-			{
-				i = 1;
-				after = tmp->next;
-				while (str[i])
-				{
-					new = ft_lstnew(NULL);
-					new->word = ft_strdup(str[i]);
-					ft_lst_add_after(&tmp, after, new);
-					i++;
-				}
-			}
-			free_str(str);
+			if (not_variable(tmp))
+				return (1);
 		}
 		tmp = tmp->next;
 	}
+	return (0);
 }

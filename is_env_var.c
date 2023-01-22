@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:54:54 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 18:08:52 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:50:25 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*is_env_var(t_list *tmp, t_init *init)
 			if (var)
 			{
 				if (str)
-					str = ft_strjoin(str, var);
+					str = ft_strjoin_free(str, var);
 				else
 					str = ft_strdup(var);
 				free(var);

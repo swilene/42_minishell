@@ -6,24 +6,11 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:48:30 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 18:01:44 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:23:01 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
-
-void	free_new_lexer(t_lexer *new)
-{
-	if (new->cmd)
-		free(new->cmd);
-	if (new->builtin)
-		free(new->builtin);
-	if (new->program)
-		free(new->program);
-	if (new->args)
-		free_str(new->args);
-	free(new);
-}
 
 void	lexer(t_init *init)
 {
@@ -31,7 +18,8 @@ void	lexer(t_init *init)
 	t_lexer	*new;
 
 	is_env_var(init->sentence, init);
-	split_word(init->sentence);
+	if (split_word(init->sentence))
+		return ;
 	tmp = init->sentence;
 	new = ft_lexernew();
 	if (!new)

@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:16:41 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/22 16:43:20 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:12:02 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,29 @@ static void	flags(t_lexer *lexer, int *j, int *n)
 	}
 }
 
+int	write_arg(t_init *init, t_lexer *lexer, int j)
+{
+	if (!init->nb_pipe && lexer->fd_out)
+	{
+		if (write(lexer->fd_out, lexer->args[j], ft_strlen(lexer->args[j]))
+			< 0)
+			return (1);
+	}
+	else
+		printf("%s", lexer->args[j]);
+	if (lexer->args[j + 1])
+	{
+		if (!init->nb_pipe && lexer->fd_out)
+		{
+			if (write(lexer->fd_out, " ", 1) < 0)
+				return (2);
+		}
+		else
+			printf(" ");
+	}
+	return (0);
+}
+
 void	is_echo(t_lexer *lexer, t_init *init)
 {
 	int	j;
@@ -45,23 +68,8 @@ void	is_echo(t_lexer *lexer, t_init *init)
 		flags(lexer, &j, &n);
 	while (lexer->args[j])
 	{
-		if (!init->nb_pipe && lexer->fd_out)
-		{
-			if (write(lexer->fd_out, lexer->args[j], ft_strlen(lexer->args[j])) < 0)
-				return (perror("echo"));
-		}
-		else
-			printf("%s", lexer->args[j]);
-		if (lexer->args[j + 1])
-		{
-			if (!init->nb_pipe && lexer->fd_out)
-			{
-				if (write(lexer->fd_out, " ", 1) < 0)
-					return (perror("echo"));
-			}
-			else
-				printf(" ");
-		}
+		if (write_arg(init, lexer, j))
+			return (perror("echo"));
 		j++;
 	}
 	if (!n)

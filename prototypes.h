@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:08:36 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/22 16:42:07 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:23:39 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	signal_fork(int signal);
 void	single_quotes(int *i, int *len, char *word, char *str);
 void	double_quotes(int *i, int *len, char *word, char *str);
 char	*search_variable(char *var_name, char *var, t_env *tmp);
-void	split_word(t_list *tmp);
+int		split_word(t_list *tmp);
+void	free_new_lexer(t_lexer *new);
 
 #endif
