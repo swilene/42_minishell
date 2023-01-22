@@ -6,13 +6,21 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 16:33:46 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/17 11:51:33 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 16:02:46 by tchantro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
 
 extern int	g_exit_code;
+
+void	error_no_entry(t_init *init)
+{
+	close_files(init);
+	free_before_exit(init);
+	g_exit_code = 127;
+	exit(g_exit_code);
+}
 
 char	*get_access(char **path, char *cmd)
 {
@@ -55,18 +63,10 @@ void	is_cmd(t_lexer *tmp, t_init *init)
 	else if (tmp->cmd[0] == '/')
 	{
 		printf("%s: %s\n", tmp->cmd, strerror(ENOENT));
-		close_files(init);
-		free_before_exit(init);
-		g_exit_code = 127;
-		exit(g_exit_code);
+		error_no_entry(init);
 	}
 	else
 		tmp->prog = get_access(init->path, tmp->cmd);
 	if (!tmp->prog)
-	{
-		close_files(init);
-		free_before_exit(init);
-		g_exit_code = 127;
-		exit(g_exit_code);
-	}
+		error_no_entry(init);
 }

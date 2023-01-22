@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:05:01 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 18:05:32 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 14:29:38 by tchantro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ int	is_quote(char *line, int *j, int quotes)
 
 int	is_word(char *line, int *j)
 {
-	if (ft_isalnum(line[*j]) == 1 || ft_isspace(line[*j]) == 1 || line[*j] == '#'
-		|| line[*j] == '-' || line[*j] == '.' || line[*j]
-		== '~' || line[*j] == '/' || line[*j] == '=' || line[*j] == '[')
+	if (ft_isalnum(line[*j]) == 1 || ft_isspace(line[*j]) == 1
+		|| line[*j] == '#' || line[*j] == '-' || line[*j] == '.'
+		|| line[*j] == '~' || line[*j] == '/' || line[*j] == '='
+		|| line[*j] == '[')
 	{
 		while (line[*j] && (!(ft_isspace(line[*j]) == 1 || line[*j] == '|')))
 		{

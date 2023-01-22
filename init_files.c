@@ -6,13 +6,24 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:15:37 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 18:06:27 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 16:00:33 by tchantro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
 
 extern int	g_exit_code;
+
+void	in_and_out_files_bis(t_red *tmp_red, t_lexer *tmp_lexer)
+{
+	if (tmp_lexer->fd_in)
+	{
+		if (close(tmp_lexer->fd_in) < 0)
+			perror(tmp_lexer->file_in);
+	}
+		tmp_lexer->file_in = tmp_red->file;
+		tmp_lexer->fd_in = tmp_lexer->fd_heredoc[0];
+}
 
 void	in_and_out_files(t_red *tmp_red, t_lexer *tmp_lexer)
 {
@@ -38,15 +49,7 @@ void	in_and_out_files(t_red *tmp_red, t_lexer *tmp_lexer)
 	}
 	else if (tmp_red->mode == 5 && (tmp_lexer->cmd || tmp_lexer->builtin
 			|| tmp_lexer->program))
-	{
-		if (tmp_lexer->fd_in)
-		{
-			if (close(tmp_lexer->fd_in) < 0)
-				perror(tmp_lexer->file_in);
-		}
-		tmp_lexer->file_in = tmp_red->file;
-		tmp_lexer->fd_in = tmp_lexer->fd_heredoc[0];
-	}
+		in_and_out_files_bis(tmp_red, tmp_lexer);
 }
 
 int	open_file(t_red *tmp_red, t_lexer *tmp_lexer)

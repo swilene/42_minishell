@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 10:49:14 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/11 18:03:21 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 16:01:04 by tchantro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,22 @@
 
 extern int	g_exit_code;
 
-int	first_errors(char *line, int *i)
+void	command_not_found(char *line, int *i)
 {
 	int		j;
 	char	*word;
 
+	j = *i;
+	while (ft_isspace(line[j]) == 0 && line[j])
+		j++;
+	word = ft_substr(line, i, j - *i);
+	g_exit_code = 127;
+	printf("%s: command not found\n", word);
+	free(word);
+}
+
+int	first_errors(char *line, int *i)
+{
 	if (!((line[*i] >= 'a' && line[*i] <= 'z') || line[*i] == '$' || line[*i]
 			== '>' || line[*i] == '<' || line[*i] == '"' || line[*i] == '\''
 			|| (line[*i] >= 'A' && line[*i] <= 'Z') || line[*i] == '.'
@@ -32,13 +43,8 @@ int	first_errors(char *line, int *i)
 		}
 		else
 		{
-			j = *i;
-			while (line[j] != ' ' && line[j] != '\t' && line[j])
-				j++;
-			word = ft_substr(line, i, j - *i);
-			g_exit_code = 127;
-			printf("%s: command not found\n", word);
-			return (free(word), 2);
+			command_not_found(line, i);
+			return (2);
 		}
 	}
 	return (0);

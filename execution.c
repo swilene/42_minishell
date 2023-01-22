@@ -6,13 +6,31 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:45:23 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 10:50:48 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 16:00:47 by tchantro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
 
 extern int	g_exit_code;
+
+void	close_pipe(t_init *init, int i)
+{
+	if (i != 0)
+	{
+		if (close(init->fd_pipe[i - 1][0] < 0))
+			ft_printf("fd_pipe[%d][0]: %s\n", i - 1, strerror(errno));
+	}
+	if (i != init->nb_pipe)
+	{
+		if (close(init->fd_pipe[i][1] < 0))
+			ft_printf("fd_pipe[%d][1]: %s\n", i, strerror(errno));
+	}
+	free_pipe(init);
+	init->nb_pipe = 0;
+	free_before_exit(init);
+	exit(g_exit_code);
+}
 
 void	execution(t_lexer *lexer, t_init *init, int i)
 {
@@ -34,20 +52,5 @@ void	execution(t_lexer *lexer, t_init *init, int i)
 			is_exit(init, lexer);
 	}
 	if (init->nb_pipe)
-	{
-		if (i != 0)
-		{
-			if (close(init->fd_pipe[i - 1][0] < 0))
-				ft_printf("fd_pipe[%d][0]: %s\n", i - 1, strerror(errno));
-		}
-		if (i != init->nb_pipe)
-		{
-			if (close(init->fd_pipe[i][1] < 0))
-				ft_printf("fd_pipe[%d][1]: %s\n", i, strerror(errno));
-		}
-		free_pipe(init);
-		init->nb_pipe = 0;
-		free_before_exit(init);
-		exit(g_exit_code);
-	}
+		close_pipe(init, i);
 }

@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:49:31 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 16:53:19 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/22 15:57:39 by tchantro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ int	pipex(t_init *init)
 	i = 0;
 	while (tmp)
 	{
-		if (!tmp->cmd && !tmp->builtin && !tmp->program)
-			tmp = tmp->next;
-		else
+		if (tmp->cmd || tmp->builtin || tmp->program)
 		{
 			if (tmp->cmd || tmp->program || init->nb_pipe)
 			{
@@ -67,9 +65,9 @@ int	pipex(t_init *init)
 			}
 			else
 				do_dup(tmp, init, i);
-			i++;
-			tmp = tmp->next;
 		}
+		i++;
+		tmp = tmp->next;
 	}
 	parent_proc(init);
 	signal(SIGINT, &signal_int);
