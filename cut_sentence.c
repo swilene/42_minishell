@@ -6,11 +6,13 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:05:01 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/23 14:58:26 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:52:58 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
+
+extern int	g_exit_code;
 
 int	is_quote(char *line, int *j, int quotes)
 {
@@ -89,10 +91,20 @@ void	check_pipes(t_init *init)
 	tmp = init->sentence;
 	while (tmp)
 	{
-		if (tmp->word[0] == '|' && tmp->next->word[0] == '|')
+		if (tmp->word[0] == '|')
 		{
-			printf("syntax error\n");
-			return ;
+			if (!tmp->next)
+			{
+				printf("syntax error\n");
+				g_exit_code = 2;
+				return ;
+			}
+			else if (tmp->next->word[0] == '|')
+			{
+				printf("syntax error\n");
+				g_exit_code = 2;
+				return ;
+			}
 		}
 		tmp = tmp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:24:16 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/23 15:14:07 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:20:27 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	single_arg(char *str, int pipe)
 
 	if (str_isdigit(str) == 0)
 	{
-		arg = atoi(str);
+		arg = ft_atoi(str);
 		if (arg < 0 || arg > 255)
 			g_exit_code = 42;
 		else
