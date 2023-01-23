@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 12:10:59 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/23 14:42:02 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:03:36 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ int	main(int argc, char **argv, char **envp)
 	t_init	init;
 
 	(void)argv;
-	if (argc == 1)
+	if (argc > 1)
+		printf("No arguments needed !\n");
+	else
 	{
 		if (!(lst_env(&init, envp)))
 			return (free_env(&init), 1);

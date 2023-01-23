@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:24:16 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/17 17:33:03 by tchantro         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:14:07 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,14 @@ void	is_exit(t_init *init, t_lexer *lexer)
 	int	leave;
 
 	i = 0;
+	leave = 0;
 	if (!lexer)
 		free_and_exit(init);
 	while (lexer->args[i])
 		i++;
 	if (i > 2)
 		leave = multiple_arg(lexer->args[1], init->nb_pipe);
-	else
+	else if (i > 1)
 		leave = single_arg(lexer->args[1], init->nb_pipe);
 	if (leave == 0)
 		free_and_exit(init);
