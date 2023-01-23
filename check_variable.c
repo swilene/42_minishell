@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:49:40 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/22 19:15:15 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/23 13:08:24 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_exit_code;
 
-int	not_exit_code(int *i, char *str, t_init *init, char **var) 
+int	not_exit_code(int *i, char *str, t_init *init, char **var)
 {
 	int		err;
 	int		j;
@@ -24,7 +24,6 @@ int	not_exit_code(int *i, char *str, t_init *init, char **var)
 	while (str[j] && (ft_isalnum(str[j]) == 1 || str[j] == '_'))
 		j++;
 	var_name = ft_substr(str, i, j - (*i));
-	printf("var_name: %s\n", var_name);
 	if (!var_name)
 		return (printf("ft_substr: %s\n", strerror(ENOMEM)), 2);
 	(*i)--;
@@ -44,15 +43,13 @@ int	not_exit_code(int *i, char *str, t_init *init, char **var)
 
 int	check_variable(int *i, char *str, t_init *init, char **var)
 {
-
 	if (str[*i + 1] != '\0')
 		(*i)++;
-	*var = NULL;
 	if (str[*i] == '?')
 	{
 		*var = ft_itoa(g_exit_code);
 		if (!(*var))
-			return (1);
+			return (printf("ft_itoa: %s\n", strerror(ENOMEM)), 1);
 	}
 	else
 	{
@@ -62,4 +59,3 @@ int	check_variable(int *i, char *str, t_init *init, char **var)
 	(*i)++;
 	return (0);
 }
-

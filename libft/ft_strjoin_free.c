@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 16:12:54 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 16:15:15 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/23 10:04:55 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	j = 0;
 	str = (char *)malloc(sizeof(*str) * (i1 + i2) + 1);
 	if (!(str))
-		return (NULL);
+		return (free(s1), NULL);
 	while (s1[j])
 	{
 		str[j] = s1[j];

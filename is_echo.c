@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:16:41 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/22 17:12:02 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:59:56 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	write_arg(t_init *init, t_lexer *lexer, int j)
 	}
 	else
 		printf("%s", lexer->args[j]);
-	if (lexer->args[j + 1])
+	if (lexer->args[j + 1] && lexer->args[j + 1][0] != '#')
 	{
 		if (!init->nb_pipe && lexer->fd_out)
 		{
@@ -68,6 +68,8 @@ void	is_echo(t_lexer *lexer, t_init *init)
 		flags(lexer, &j, &n);
 	while (lexer->args[j])
 	{
+		if (lexer->args[j][0] == '#')
+			break ;
 		if (write_arg(init, lexer, j))
 			return (perror("echo"));
 		j++;

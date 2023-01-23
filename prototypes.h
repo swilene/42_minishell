@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 12:08:36 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/22 18:51:37 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:36:14 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	free_new_lexer(t_lexer *new);
 char	**get_path(char **envp);
 char	*is_redirection(t_lexer *lexer, t_list **sentence);
 void	free_list(t_init *init);
-t_lexer	*is_pipe(t_list *tmp, t_lexer *new, t_init *init);
+t_lexer	*is_pipe(t_list *tmp, t_lexer **new, t_init *init);
 char	*init_files(t_init *init);
 void	signal_int(int signal);
 void	signal_heredoc(int signal);
@@ -65,7 +65,7 @@ void	is_env(t_lexer *tmp, t_init *init);
 void	is_unset(t_init *init, t_env **env, t_env **var);
 void	is_echo(t_lexer *lexer, t_init *init);
 void	is_cd(t_lexer *tmp);
-int		is_env_var(t_list *tmp, t_init *init);
+int		env_var(t_list *tmp, t_init *init, int i);
 int		is_heredoc(t_red *tmp, t_lexer *tmp_lexer, t_init *init);
 void	is_export(t_init *init, t_env **env, t_env **var);
 int		in_env(char *arg, t_env **env);
@@ -73,10 +73,11 @@ int		in_var(char *arg, t_env **env, t_env **var);
 void	is_exit(t_init *init, t_lexer *lexer);
 void	close_fd_heredoc(t_lexer *lexer);
 void	signal_fork(int signal);
-void	single_quotes(int *i, int *len, char *word, char *str);
-void	double_quotes(int *i, int *len, char *word, char *str);
 int		search_variable(char *var_name, char **var, t_env *tmp);
 int		split_word(t_list *tmp);
 void	free_new_lexer(t_lexer *new);
 int		check_variable(int *i, char *str, t_init *init, char **var);
+int		quotes(t_list *tmp, int *i, char **var, int j);
+int		no_quotes(t_list *tmp, int *i, char **var);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:49:31 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/22 17:01:05 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/23 14:41:50 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,17 @@ int	pipex(t_init *init)
 	return (0);
 }
 
-t_lexer	*is_pipe(t_list *tmp, t_lexer *new, t_init *init)
+t_lexer	*is_pipe(t_list *tmp, t_lexer **new, t_init *init)
 {
 	if (ft_strlen(tmp->word) > 1)
 	{
-		free_new_lexer(new);
+		free_new_lexer(*new);
 		return (printf("syntax error\n"), NULL);
 	}
-	ft_lexeradd_back(&(init->lexer), new);
-	new = ft_lexernew();
-	if (!new)
+	ft_lexeradd_back(&(init->lexer), *new);
+	*new = ft_lexernew();
+	if (!*new)
 		return (free(tmp->word), NULL);
 	init->nb_pipe++;
-	return (new);
+	return (*new);
 }
