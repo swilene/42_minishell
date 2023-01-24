@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 10:49:14 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/23 14:50:43 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/24 15:50:28 by tchantro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	parsing_line(char *line, t_init *init)
 	int	quotes;
 
 	i = 0;
-	while (line[i] == ' ' && line[i])
+	while (ft_isspace(line[i]) == 1 && line[i])
 		i++;
 	if (!line[i] || line[i] == '#')
 		return (g_exit_code = 0, 1);
