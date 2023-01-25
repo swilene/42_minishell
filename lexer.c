@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:48:30 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/25 15:00:23 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:10:58 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	lexer(t_init *init)
 		return ;
 	while (tmp)
 	{
-		//printf("DEBUG word: %s\n", tmp->word);
 		if (tmp->word[0] == '#')
 			break ;
 		if (parsing_word(&tmp, init, &new))
