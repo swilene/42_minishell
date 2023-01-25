@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:59:09 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/22 17:20:18 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/25 17:16:00 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ extern int	g_exit_code;
 void	after_limiter(t_lexer *tmp, t_init *init)
 {
 	close_fd_heredoc(tmp);
+	close_files(init);
 	init->nb_pipe = 0;
 	free_before_exit(init);
 	exit(g_exit_code);
