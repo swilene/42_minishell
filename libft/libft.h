@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:12:03 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 17:29:07 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:31:49 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_lexer
 typedef struct s_list
 {
 	char			*word;
+	int				var;
 	struct s_list	*next;
 }	t_list;
 

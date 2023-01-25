@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:54:54 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/23 14:15:36 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/25 16:08:46 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static char	*parsing_word(t_list *tmp, t_init *init, int *i, char *str)
 	}
 	else if (tmp->word[*i] == '$')
 	{
+		tmp->var = 1;
 		if (check_variable(i, tmp->word, init, &var))
 			return (NULL);
 	}
@@ -80,7 +81,8 @@ int	env_var(t_list *tmp, t_init *init, int i)
 		while (tmp->word[i])
 		{
 			str = parsing_word(tmp, init, &i, str);
-			if (tmp->word[i] && tmp->word[i] != '$')
+			printf("DEBUG %c\n", tmp->word[i]);
+			if (tmp->word[i] && tmp->word[i] != '$' && tmp->word[i] != ' ')
 				i++;
 		}
 		if (str)

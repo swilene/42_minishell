@@ -6,19 +6,17 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:12:04 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/24 16:03:33 by tchantro         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:52:04 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
 
-int	big_str(t_list *tmp, char **str)
+int	big_str(t_list *tmp, char **str, int i)
 {
-	int		i;
 	t_list	*new;
 	t_list	*after;
 
-	i = 1;
 	after = tmp->next;
 	while (str[i])
 	{
@@ -35,6 +33,7 @@ int	big_str(t_list *tmp, char **str)
 			free_str(str);
 			return (printf("ft_strdup: %s\n", strerror(ENOMEM)), 2);
 		}
+		new->var = 1;
 		ft_lst_add_after(&tmp, after, new);
 		i++;
 	}
@@ -61,7 +60,7 @@ int	not_variable(t_list *tmp)
 	}
 	if (i > 1)
 	{
-		if (big_str(tmp, str))
+		if (big_str(tmp, str, 1))
 			return (3);
 	}
 	free_str(str);
@@ -70,18 +69,9 @@ int	not_variable(t_list *tmp)
 
 int	split_word(t_list *tmp)
 {
-	int		i;
-
 	while (tmp)
 	{
-		i = 0;
-		while (tmp->word[i])
-		{
-			if (tmp->word[i] == '=')
-				break ;
-			i++;
-		}
-		if (!tmp->word[i])
+		if (tmp->var)
 		{
 			if (not_variable(tmp))
 				return (1);

@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/20 09:51:29 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/19 17:39:19 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:31:29 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_list	*ft_lstnew(char	*word)
 	if (!head)
 		return (free(word), NULL);
 	head->word = word;
+	head->var = 0;
 	head->next = NULL;
 	return (head);
 }

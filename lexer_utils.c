@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 14:31:17 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/19 17:15:58 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/25 14:50:55 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ char	*take_args(t_list **tmp, t_lexer *new, int i, int j)
 	t_list	*lst;
 
 	lst = (*tmp);
-	while (lst && lst->word[0] != '|' && lst->word[0] != '>' && lst->word[0]
-		!= '<')
+	while (lst && ((lst->var == 1) || (lst->word[0] != '|' && lst->word[0]
+				!= '>' && lst->word[0] != '<')))
 	{
 		i++;
 		lst = lst->next;

@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 12:48:45 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/24 15:53:50 by tchantro         ###   ########.fr       */
+/*   Updated: 2023/01/25 15:40:35 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	double_quotes(t_list *tmp, int *i, char **var, int j)
 	j = *i;
 	while (tmp->word[*i] && tmp->word[*i] != '"' && tmp->word[*i] != '$')
 		(*i)++;
-	(*i)--;
+	//(*i)--;
 	if (*i - j >= 0)
 	{
-		*var = ft_substr(tmp->word, &j, *i - j + 1);
+		*var = ft_substr(tmp->word, &j, *i - j/* + 1*/);
 		if (!*var)
 			return (printf("ft_substr: %s\n", strerror(ENOMEM)), 1);
 	}
