@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 18:49:40 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/23 13:08:24 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:12:41 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ int	check_variable(int *i, char *str, t_init *init, char **var)
 		if (not_exit_code(i, str, init, var))
 			return (2);
 	}
-	(*i)++;
 	return (0);
 }

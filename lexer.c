@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 10:48:30 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/25 16:10:58 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/26 15:52:21 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	parsing_word(t_list **tmp, t_init *init, t_lexer **new)
 	}
 	else if (ft_isalnum((*tmp)->word[0]) == 1 || ft_isspace((*tmp)->word[0])
 		== 1 || (*tmp)->word[0] == '/' || (*tmp)->word[0] == '$'
-		|| (*tmp)->word[0] == '\'')
+		|| (*tmp)->word[0] == '\'' || (*tmp)->word[0] == '.')
 	{
 		if (builtin_command_envariable(tmp, init, *new))
 			return (2);

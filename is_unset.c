@@ -6,11 +6,13 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:23:44 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 18:01:04 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:18:59 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
+
+extern int	g_exit_code;
 
 int	var_len(char *str)
 {
@@ -105,4 +107,5 @@ void	is_unset(t_init *init, t_env **env, t_env **var)
 		}
 		j++;
 	}
+	g_exit_code = 0;
 }

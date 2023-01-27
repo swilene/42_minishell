@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 17:54:54 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/25 16:10:12 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:45:10 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,18 @@ static char	*parsing_word(t_list *tmp, t_init *init, int *i, char *str)
 
 	var = NULL;
 	if (tmp->word[*i] == '$' && (tmp->word[*i + 1] == '\0'
-			||tmp->word[*i + 1] == '"' || tmp->word[*i + 1] == '\''))
+			|| tmp->word[*i + 1] == '"' || tmp->word[*i + 1] == '\''))
 	{
 		return (only_dollar(str, tmp, i));
 	}
 	else if (tmp->word[*i] == '$')
 	{
-		tmp->var = 1;
 		if (check_variable(i, tmp->word, init, &var))
 			return (NULL);
 	}
 	else if (tmp->word[*i] == '"' || tmp->word[*i] == '\'')
 	{
+		tmp->var = 1;
 		if (quotes(tmp, i, &var, 0))
 			return (NULL);
 	}
@@ -81,7 +81,9 @@ int	env_var(t_list *tmp, t_init *init, int i)
 		while (tmp->word[i])
 		{
 			str = parsing_word(tmp, init, &i, str);
-			if (tmp->word[i] && tmp->word[i] != '$' && tmp->word[i] != ' ')
+			if (!str)
+				return (1);
+			if (tmp->word[i] && tmp->word[i] != '$')
 				i++;
 		}
 		if (str)
@@ -92,8 +94,6 @@ int	env_var(t_list *tmp, t_init *init, int i)
 			if (!tmp->word)
 				return (printf("ft_substr: %s\n", strerror(ENOMEM)), 2);
 		}
-		else
-			return (1);
 		tmp = tmp->next;
 	}
 	return (0);

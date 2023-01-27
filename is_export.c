@@ -6,11 +6,13 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 17:23:18 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/20 18:00:47 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:18:21 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
+
+extern int	g_exit_code;
 
 int	verif_export_args(char *str)
 {
@@ -84,4 +86,5 @@ void	is_export(t_init *init, t_env **env, t_env **var)
 			little_arg(init->lexer->args[i], env, var);
 		i++;
 	}
+	g_exit_code = 0;
 }

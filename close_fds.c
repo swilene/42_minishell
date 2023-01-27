@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 17:30:04 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/25 17:15:41 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/26 12:15:08 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	close_fd_heredoc(t_lexer *lexer)
 {
-
 	if (close(lexer->fd_heredoc[0]) < 0)
 		perror("here_doc");
 	if (close(lexer->fd_heredoc[1]) < 0)

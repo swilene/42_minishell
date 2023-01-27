@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:05:01 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/24 15:59:19 by tchantro         ###   ########.fr       */
+/*   Updated: 2023/01/27 16:12:51 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,14 @@ int	is_not_word(char *line, int *j)
 		{
 			if (line[*j] == '\'' || line[*j] == '"')
 				is_quote(line, j, 1);
-			(*j)++;
+			if (line[*j])
+				(*j)++;
 		}
 	}
 	else if (!(ft_isalnum(line[*j] == 1) || ft_isspace(line[*j]) == 1
 			|| line[*j] == '\0' || line[*j] == '/'))
 	{
-		while (!(ft_isalnum(line[*j] == 1) || ft_isspace(line[*j]) == 1
+		while (!(ft_isalnum(line[*j]) == 1 || ft_isspace(line[*j]) == 1
 				|| line[*j] == '$' || line[*j] == '\0' || line[*j] == '/'))
 			(*j)++;
 	}

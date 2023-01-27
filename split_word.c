@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 16:12:04 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/25 14:52:04 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/27 14:42:37 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	split_word(t_list *tmp)
 {
 	while (tmp)
 	{
-		if (tmp->var)
+		if (!tmp->var)
 		{
 			if (not_variable(tmp))
 				return (1);

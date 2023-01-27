@@ -6,7 +6,7 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:16:41 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/25 15:21:54 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:45:28 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,5 @@ void	is_echo(t_lexer *lexer, t_init *init)
 		else
 			printf("\n");
 	}
+	g_exit_code = 0;
 }

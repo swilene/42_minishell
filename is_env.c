@@ -6,11 +6,13 @@
 /*   By: saguesse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 17:09:20 by saguesse          #+#    #+#             */
-/*   Updated: 2023/01/22 16:39:06 by saguesse         ###   ########.fr       */
+/*   Updated: 2023/01/27 17:17:36 by saguesse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "prototypes.h"
+
+extern int	g_exit_code;
 
 void	is_env(t_lexer *tmp, t_init *init)
 {
@@ -32,4 +34,5 @@ void	is_env(t_lexer *tmp, t_init *init)
 		init->env = init->env->next;
 	}
 	init->env = first;
+	g_exit_code = 0;
 }
